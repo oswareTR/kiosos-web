@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+  Kiosos design grammar
+  Voice: simplistic, sleek, modern — with a pinch of familiarity/comfort.
+  One palette. Light and dark only swap which end of each ramp is used where.
+*/
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --color-onyx-50: #eff5f2;
+  --color-onyx-100: #e0ebe6;
+  --color-onyx-200: #c0d8cc;
+  --color-onyx-300: #a1c4b3;
+  --color-onyx-400: #82b099;
+  --color-onyx-500: #629d80;
+  --color-onyx-600: #4f7d66;
+  --color-onyx-700: #3b5e4d;
+  --color-onyx-800: #273f33;
+  --color-onyx-900: #141f1a;
+  --color-onyx-950: #0e1612;
+
+  --color-ash-grey-50: #f4f4f0;
+  --color-ash-grey-100: #e9e9e2;
+  --color-ash-grey-200: #d2d3c5;
+  --color-ash-grey-300: #bcbda8;
+  --color-ash-grey-400: #a6a78b;
+  --color-ash-grey-500: #90916e;
+  --color-ash-grey-600: #737458;
+  --color-ash-grey-700: #565742;
+  --color-ash-grey-800: #393a2c;
+  --color-ash-grey-900: #1d1d16;
+  --color-ash-grey-950: #14140f;
+
+  --color-dust-grey-50: #f4f4f0;
+  --color-dust-grey-100: #e9e8e2;
+  --color-dust-grey-200: #d3d2c5;
+  --color-dust-grey-300: #bdbba8;
+  --color-dust-grey-400: #a7a58b;
+  --color-dust-grey-500: #918e6e;
+  --color-dust-grey-600: #747258;
+  --color-dust-grey-700: #575542;
+  --color-dust-grey-800: #3a392c;
+  --color-dust-grey-900: #1d1c16;
+  --color-dust-grey-950: #14140f;
+
+  --color-brown-red-50: #faebeb;
+  --color-brown-red-100: #f5d7d6;
+  --color-brown-red-200: #ebaead;
+  --color-brown-red-300: #e08685;
+  --color-brown-red-400: #d65e5c;
+  --color-brown-red-500: #cc3633;
+  --color-brown-red-600: #a32b29;
+  --color-brown-red-700: #7a201f;
+  --color-brown-red-800: #521514;
+  --color-brown-red-900: #290b0a;
+  --color-brown-red-950: #1d0707;
+
+  --color-chestnut-50: #faebea;
+  --color-chestnut-100: #f5d8d6;
+  --color-chestnut-200: #ebb0ad;
+  --color-chestnut-300: #e18984;
+  --color-chestnut-400: #d7615b;
+  --color-chestnut-500: #cd3a32;
+  --color-chestnut-600: #a42e28;
+  --color-chestnut-700: #7b231e;
+  --color-chestnut-800: #521714;
+  --color-chestnut-900: #290c0a;
+  --color-chestnut-950: #1d0807;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-nav: var(--nav);
+  --color-nav-foreground: var(--nav-foreground);
+  --color-nav-muted: var(--nav-muted);
+  --color-hover: var(--hover);
+  --shadow-soft: var(--elevation-soft);
+  --shadow-lift: var(--elevation-lift);
+}
+
+:root,
+[data-color-scheme="light"] {
+  color-scheme: light;
+  --canvas: var(--color-ash-grey-50);
+  --surface: #ffffff;
+  --surface-muted: var(--color-onyx-50);
+  --ink: var(--color-onyx-950);
+  --ink-muted: var(--color-onyx-700);
+  --ink-subtle: var(--color-dust-grey-500);
+  --accent: var(--color-chestnut-500);
+  --accent-hover: var(--color-chestnut-600);
+  --accent-foreground: var(--color-chestnut-50);
+  --border: var(--color-onyx-200);
+  --ring: var(--color-chestnut-500);
+  --nav: var(--color-ash-grey-50);
+  --nav-foreground: var(--color-onyx-950);
+  --nav-muted: var(--color-onyx-600);
+  --hover: rgb(14 22 18 / 0.06);
+  --elevation-soft:
+    0 1px 2px rgb(14 22 18 / 0.05), 0 10px 28px rgb(14 22 18 / 0.06);
+  --elevation-lift:
+    0 4px 6px rgb(14 22 18 / 0.04), 0 16px 40px rgb(14 22 18 / 0.08);
+}
+
+[data-color-scheme="dark"] {
+  color-scheme: dark;
+  --canvas: var(--color-onyx-950);
+  --surface: var(--color-onyx-900);
+  --surface-muted: var(--color-onyx-800);
+  --ink: var(--color-ash-grey-50);
+  --ink-muted: var(--color-onyx-300);
+  --ink-subtle: var(--color-dust-grey-400);
+  --accent: var(--color-chestnut-500);
+  --accent-hover: var(--color-chestnut-400);
+  --accent-foreground: var(--color-chestnut-50);
+  --border: var(--color-onyx-800);
+  --ring: var(--color-chestnut-400);
+  --nav: var(--color-onyx-950);
+  --nav-foreground: var(--color-ash-grey-50);
+  --nav-muted: var(--color-ash-grey-400);
+  --hover: rgb(244 244 240 / 0.08);
+  --elevation-soft:
+    0 1px 2px rgb(0 0 0 / 0.35), 0 10px 28px rgb(0 0 0 / 0.28);
+  --elevation-lift:
+    0 4px 6px rgb(0 0 0 / 0.28), 0 16px 40px rgb(0 0 0 / 0.36);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+[data-color-scheme="dark"] .show-light-only,
+[data-color-scheme="light"] .show-dark-only {
+  display: none;
+}
+
+@layer components {
+  .wrap {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .wrap {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  .section {
+    scroll-margin-top: 6rem;
+    padding-block: 5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .display {
+    font-size: 2.25rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .lede {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--ink-muted);
+  }
+
+  .surface-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    box-shadow: var(--elevation-soft);
+  }
+}
+
+@media (min-width: 640px) {
+  .display {
+    font-size: 3rem;
+  }
+
+  .section {
+    padding-block: 6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .display {
+    font-size: 3.75rem;
+  }
 }
