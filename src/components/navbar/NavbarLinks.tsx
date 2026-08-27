@@ -16,7 +16,8 @@ export function NavbarLinks({ className, onNavigate }: NavbarLinksProps) {
   return (
     <nav aria-label="Primary" className={cn("flex items-center gap-1", className)}>
       {navItems.map((item) => {
-        const isActive = item.href === "/home" && pathname === "/home";
+        const isHome = pathname === "/" || pathname === "/home";
+        const isActive = item.href === "/" && isHome;
 
         return (
           <Link

@@ -10,7 +10,7 @@ type NavbarLogoProps = {
 export function NavbarLogo({ onNavigate }: NavbarLogoProps) {
   return (
     <Link
-      href="/home"
+      href="/"
       onClick={onNavigate}
       className="flex shrink-0 items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
       aria-label="Kiosos home"

@@ -17,8 +17,8 @@ export function HomeHero() {
             every screen in the venue.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/home#contact">Book a demo</Button>
-            <Button variant="secondary" href="/home#solutions">
+            <Button href="/#contact">Book a demo</Button>
+            <Button variant="secondary" href="/#solutions">
               See solutions
             </Button>
           </div>
