@@ -44,8 +44,8 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggleColorScheme}
-      aria-label="Toggle light and dark theme"
-      title="Toggle light and dark theme"
+      aria-label="Açık ve koyu tema arasında geçiş yap"
+      title="Açık ve koyu tema arasında geçiş yap"
       className="inline-flex size-10 items-center justify-center rounded-lg text-nav-foreground transition-colors duration-150 ease-out hover:bg-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       <span className="show-light-only">

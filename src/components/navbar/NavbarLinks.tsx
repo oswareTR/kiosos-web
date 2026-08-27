@@ -14,7 +14,7 @@ export function NavbarLinks({ className, onNavigate }: NavbarLinksProps) {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Primary" className={cn("flex items-center gap-1", className)}>
+    <nav aria-label="Ana menü" className={cn("flex items-center gap-1", className)}>
       {navItems.map((item) => {
         const isHome = pathname === "/" || pathname === "/home";
         const isActive = item.href === "/" && isHome;

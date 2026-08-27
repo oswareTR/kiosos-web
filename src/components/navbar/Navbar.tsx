@@ -33,10 +33,10 @@ export function Navbar() {
             className="inline-flex size-10 items-center justify-center rounded-lg text-nav-foreground hover:bg-hover"
             aria-expanded={open}
             aria-controls="mobile-nav"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
             onClick={() => setOpen((value) => !value)}
           >
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span className="sr-only">{open ? "Menüyü kapat" : "Menüyü aç"}</span>
             <span className="flex flex-col items-center justify-center gap-1.5">
               <span
                 className={cn(

@@ -1,19 +1,19 @@
 const features = [
   {
-    title: "Menus",
-    body: "Add items, change prices, swap photos, and publish to every kiosk in minutes.",
+    title: "Menüler",
+    body: "Ürün ekleyin, fiyat değiştirin, görseli güncelleyin ve dakikalar içinde tüm kiosklara yayınlayın.",
   },
   {
-    title: "Promotions",
-    body: "Run happy hour, combos, and limited drops. Start and stop them from the app.",
+    title: "Kampanyalar",
+    body: "Happy hour, menü kombinasyonu ve sınırlı ürünleri uygulamadan başlatın ve durdurun.",
   },
   {
-    title: "Availability",
-    body: "Mark 86'd dishes instantly so guests never order what the kitchen cannot make.",
+    title: "Müsaitlik",
+    body: "Biten yemeği anında işaretleyin; mutfağın çıkaramayacağı sipariş alınmasın.",
   },
   {
-    title: "Hours & branding",
-    body: "Keep opening times, welcome screens, and venue identity consistent across units.",
+    title: "Saatler ve marka",
+    body: "Açılış saatleri, karşılama ekranları ve işletme kimliği tüm ünitelerde tutarlı kalsın.",
   },
 ];
 
@@ -21,13 +21,13 @@ export function HomeApp() {
   return (
     <section id="app" className="section border-b border-border">
       <div className="wrap">
-        <p className="eyebrow">Mobile app</p>
+        <p className="eyebrow">Mobil uygulama</p>
         <h2 className="display mt-3 max-w-2xl text-3xl sm:text-4xl">
-          The owner app is how cafes and restaurants run Kiosos day to day.
+          Kafe ve restoranlar Kiosos’u günlük olarak bu uygulamadan yönetir.
         </h2>
         <p className="lede mt-4 max-w-2xl">
-          Built for operators, not IT teams. Open the app between rushes and
-          the kiosks follow.
+          Bilişim ekibi için değil, işletmeci için tasarlandı. Yoğunluk
+          arasında uygulamayı açın; kiosklar sizi takip eder.
         </p>
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {features.map((feature) => (

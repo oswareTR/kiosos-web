@@ -4,8 +4,8 @@ export type NavItem = {
 };
 
 export const navItems: NavItem[] = [
-  { href: "/", label: "Home" },
-  { href: "/#solutions", label: "Solutions" },
-  { href: "/#installations", label: "Installations" },
-  { href: "/#app", label: "Mobile app" },
+  { href: "/", label: "Ana sayfa" },
+  { href: "/#solutions", label: "Çözümler" },
+  { href: "/#installations", label: "Kurulum" },
+  { href: "/#app", label: "Mobil uygulama" },
 ];

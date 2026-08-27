@@ -1,20 +1,21 @@
 import { Button } from "@/components/ui/Button";
+import { SITE_EMAIL_HREF } from "@/lib/site";
 
 export function HomeCta() {
   return (
     <section id="contact" className="section">
       <div className="wrap">
         <div className="surface-card px-6 py-12 sm:px-12">
-          <p className="eyebrow">Next step</p>
+          <p className="eyebrow">Sonraki adım</p>
           <h2 className="display mt-3 max-w-xl text-3xl sm:text-4xl">
-            Ready to put a Kiosos kiosk on your floor?
+            İşletmenize bir Kiosos kiosk koyalım mı?
           </h2>
           <p className="lede mt-4 max-w-lg">
-            Tell us about your cafe or restaurant. We will walk through
-            software, hardware, and a rollout that your staff can actually run.
+            Kafe veya restoranınızı anlatın. Yazılım, donanım ve ekibinizin
+            gerçekten işletebileceği bir kurulumu birlikte planlarız.
           </p>
           <div className="mt-8">
-            <Button href="mailto:hello@kiosos.com">Talk to the team</Button>
+            <Button href={SITE_EMAIL_HREF}>Ekiple iletişime geçin</Button>
           </div>
         </div>
       </div>

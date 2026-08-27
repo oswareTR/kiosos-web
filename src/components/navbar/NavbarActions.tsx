@@ -10,10 +10,10 @@ export function NavbarActions({ className, onNavigate }: NavbarActionsProps) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <Button variant="secondary" size="sm" href="/#app" onClick={onNavigate}>
-        Get the app
+        Uygulamayı indir
       </Button>
       <Button variant="primary" size="sm" href="/#contact" onClick={onNavigate}>
-        Book a demo
+        Demo randevusu
       </Button>
     </div>
   );

@@ -1,8 +1,8 @@
 const steps = [
-  "Site survey and kiosk placement",
-  "Hardware delivery and cabling",
-  "Software load-in and branding",
-  "Staff walkthrough and go-live",
+  "Saha keşfi ve kiosk yerleşimi",
+  "Donanım teslimi ve kablolama",
+  "Yazılım kurulumu ve markalama",
+  "Ekip eğitimi ve canlıya geçiş",
 ];
 
 export function HomeInstallations() {
@@ -10,14 +10,13 @@ export function HomeInstallations() {
     <section id="installations" className="section border-b border-border">
       <div className="wrap grid gap-12 lg:grid-cols-2">
         <div>
-          <p className="eyebrow">On-site</p>
+          <p className="eyebrow">Yerinde</p>
           <h2 className="display mt-3 text-3xl sm:text-4xl">
-            Installed where guests actually order.
+            Misafirlerin sipariş verdiği yere kurulur.
           </h2>
           <p className="lede mt-4 max-w-md">
-            Kiosos does not drop-ship a box and disappear. We install kiosks in
-            your space, connect them to your network, and leave the floor
-            taking orders.
+            Kiosos kutuyu bırakıp kaybolmaz. Kiosku mekânınıza kurar, ağa
+            bağlar ve salonu sipariş alacak şekilde bırakırız.
           </p>
         </div>
         <ol className="space-y-3">
