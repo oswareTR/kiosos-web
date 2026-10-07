@@ -1,0 +1,93 @@
+---
+/**
+ * GitHub Pages serves this file as site-wide 404.html.
+ * Turkish copy is applied client-side when the missing URL is under /tr/.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getMessages } from '../i18n/messages';
+const en = getMessages('en').notFound;
+const tr = getMessages('tr').notFound;
+---
+
+<BaseLayout route="home" title={en.title} description={en.description} noindex>
+  <section class="not-found">
+    <img class="not-found__kio" src="/kio_face.svg" alt="" width="120" height="110" decoding="async" />
+    <h1 id="nf-heading">{en.heading}</h1>
+    <p id="nf-lead">{en.lead}</p>
+    <a id="nf-home" class="not-found__cta" href="/">{en.cta}</a>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ en, tr, siteName: 'Kiosos' }}>
+  function applyNotFoundLocale() {
+    if (!location.pathname.startsWith('/tr')) return;
+    var t = tr;
+    document.documentElement.lang = 'tr';
+    var heading = document.getElementById('nf-heading');
+    var lead = document.getElementById('nf-lead');
+    var home = document.getElementById('nf-home');
+    if (heading) heading.textContent = t.heading;
+    if (lead) lead.textContent = t.lead;
+    if (home) {
+      home.textContent = t.cta;
+      home.href = '/tr/';
+    }
+    document.title = t.title + ' · ' + siteName;
+    var desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', t.description);
+  }
+  applyNotFoundLocale();
+</script>
+
+<style>
+  .not-found {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.25rem 6rem;
+    min-height: calc(100dvh - 5.5rem - 4rem);
+  }
+
+  .not-found__kio {
+    width: min(6rem, 28vw);
+    height: auto;
+    margin-bottom: 1.25rem;
+  }
+
+  :global([data-theme='dark']) .not-found__kio {
+    filter: invert(1);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin: 0 0 0.5rem;
+  }
+
+  p {
+    margin: 0 0 1.5rem;
+    color: var(--color-muted);
+    max-width: 22rem;
+  }
+
+  .not-found__cta {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-float);
+  }
+
+  .not-found__cta:hover {
+    background: var(--color-hover);
+  }
+</style>

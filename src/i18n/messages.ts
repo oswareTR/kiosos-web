@@ -5,7 +5,6 @@ export type RouteId =
   | 'about'
   | 'product'
   | 'mission'
-  | 'products'
   | 'spot'
   | 'contact';
 
@@ -14,7 +13,6 @@ export const routePaths: Record<RouteId, string> = {
   about: '/about',
   product: '/product',
   mission: '/mission',
-  products: '/products',
   spot: '/spot',
   contact: '/contact',
 };
@@ -26,8 +24,17 @@ type PageCopy = {
   lead: string;
 };
 
+type NotFoundCopy = {
+  title: string;
+  description: string;
+  heading: string;
+  lead: string;
+  cta: string;
+};
+
 type Messages = {
   site: { title: string; description: string };
+  notFound: NotFoundCopy;
   nav: {
     site: string;
     otherMenu: string;
@@ -36,7 +43,6 @@ type Messages = {
     about: string;
     product: string;
     mission: string;
-    products: string;
     spot: string;
     contact: string;
   };
@@ -59,9 +65,8 @@ export const messages: Record<Locale, Messages> = {
       productsMenu: 'Products',
       home: 'Home',
       about: 'About',
-      product: 'What is Kiosos?',
+      product: 'Kiosos Engine',
       mission: 'Mission',
-      products: 'Products',
       spot: 'Kiosos Spot',
       contact: 'Contact',
     },
@@ -76,6 +81,13 @@ export const messages: Record<Locale, Messages> = {
       tr: 'Türkçe',
     },
     logo: { home: 'Kiosos — home' },
+    notFound: {
+      title: 'Page not found',
+      description: 'The page you requested does not exist.',
+      heading: '404',
+      lead: 'This page doesn’t exist or was moved.',
+      cta: 'Back to home',
+    },
     pages: {
       about: {
         title: 'About',
@@ -84,9 +96,9 @@ export const messages: Record<Locale, Messages> = {
         lead: 'Who we are — content coming soon.',
       },
       product: {
-        title: 'What is Kiosos?',
+        title: 'Kiosos Engine',
         description: 'Vector sales-engine — coming soon.',
-        heading: 'What is Kiosos?',
+        heading: 'Kiosos Engine',
         lead: 'Sales-engine API — content coming soon.',
       },
       mission: {
@@ -94,12 +106,6 @@ export const messages: Record<Locale, Messages> = {
         description: 'Kiosos mission — coming soon.',
         heading: 'Mission',
         lead: 'Here to help you sell — content coming soon.',
-      },
-      products: {
-        title: 'Products',
-        description: 'Kiosos products — coming soon.',
-        heading: 'Products',
-        lead: 'Engine, Spot, and integrations — content coming soon.',
       },
       spot: {
         title: 'Kiosos Spot',
@@ -127,9 +133,8 @@ export const messages: Record<Locale, Messages> = {
       productsMenu: 'Ürünler',
       home: 'Ana sayfa',
       about: 'Hakkımızda',
-      product: 'Kiosos nedir?',
+      product: 'Kiosos Engine',
       mission: 'Misyon',
-      products: 'Ürünler',
       spot: 'Kiosos Spot',
       contact: 'İletişim',
     },
@@ -144,6 +149,13 @@ export const messages: Record<Locale, Messages> = {
       tr: 'Türkçe',
     },
     logo: { home: 'Kiosos — ana sayfa' },
+    notFound: {
+      title: 'Sayfa bulunamadı',
+      description: 'İstediğiniz sayfa mevcut değil.',
+      heading: '404',
+      lead: 'Bu sayfa yok veya taşınmış olabilir.',
+      cta: 'Ana sayfaya dön',
+    },
     pages: {
       about: {
         title: 'Hakkımızda',
@@ -152,9 +164,9 @@ export const messages: Record<Locale, Messages> = {
         lead: 'Biz kimiz — içerik yakında.',
       },
       product: {
-        title: 'Kiosos nedir?',
+        title: 'Kiosos Engine',
         description: 'Vektörel satış motoru — yakında.',
-        heading: 'Kiosos nedir?',
+        heading: 'Kiosos Engine',
         lead: 'Satış motoru API’si — içerik yakında.',
       },
       mission: {
@@ -162,12 +174,6 @@ export const messages: Record<Locale, Messages> = {
         description: 'Kiosos misyonu — yakında.',
         heading: 'Misyon',
         lead: 'Satışta yardım — içerik yakında.',
-      },
-      products: {
-        title: 'Ürünler',
-        description: 'Kiosos ürünleri — yakında.',
-        heading: 'Ürünler',
-        lead: 'Motor, Spot ve entegrasyonlar — içerik yakında.',
       },
       spot: {
         title: 'Kiosos Spot',

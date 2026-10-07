@@ -9,7 +9,7 @@ export type NavItem = {
 };
 
 /** Engine, Spot, and product overview. */
-const productMenuRoutes: RouteId[] = ['product', 'products', 'spot'];
+const productMenuRoutes: RouteId[] = ['product', 'spot'];
 
 /** About, mission, contact — under Other menu. */
 const otherMenuRoutes: RouteId[] = ['about', 'mission', 'contact'];
@@ -58,9 +58,3 @@ export function getSiteNavLabel(locale: Locale): string {
 export function isProductRoute(route: RouteId): boolean {
   return productMenuRoutes.includes(route);
 }
-
-/** @deprecated use getOtherNav */
-export const getPagesNav = getOtherNav;
-
-/** @deprecated use getOtherMenuLabel */
-export const getPagesMenuLabel = getOtherMenuLabel;

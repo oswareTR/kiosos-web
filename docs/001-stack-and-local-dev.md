@@ -62,3 +62,5 @@ At your DNS host, point the apex domain at GitHub Pages (see [GitHub docs](https
 - Or **ALIAS/ANAME** `@` → `oswaretr.github.io` if your provider supports apex CNAME flattening
 
 After DNS propagates, enable **Enforce HTTPS** on the Pages settings page once the domain shows as verified.
+
+Missing URLs are handled by **`404.html`** (from `src/pages/404.astro`), including Turkish copy when the path is under `/tr/`.
