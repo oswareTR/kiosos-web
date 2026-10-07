@@ -1,0 +1,38 @@
+---
+import { getMessages } from '../i18n/messages';
+import { localePath, type Locale } from '../i18n/locales';
+
+type Props = { locale: Locale };
+
+const { locale } = Astro.props;
+const home = getMessages(locale).logo.home;
+---
+
+<a href={localePath('/', locale)} class="top-logo" aria-label={home}>
+  <img src="/logo.svg" alt="" width="180" height="58" decoding="async" />
+</a>
+
+<style>
+  .top-logo {
+    position: fixed;
+    z-index: 40;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 0;
+    text-decoration: none;
+  }
+
+  .top-logo img {
+    display: block;
+    height: clamp(2.5rem, 8vw, 3.75rem);
+    width: auto;
+    max-width: min(15rem, 80vw);
+    object-fit: contain;
+    object-position: center;
+  }
+
+  :global([data-theme='dark']) .top-logo img {
+    filter: invert(1);
+  }
+</style>

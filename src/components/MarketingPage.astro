@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PlaceholderPage from './PlaceholderPage.astro';
+import { getMessages } from '../i18n/messages';
+import type { RouteId } from '../i18n/messages';
+import { resolveLocale } from '../lib/site';
+
+type Props = {
+  route: Exclude<RouteId, 'home'>;
+};
+
+const { route } = Astro.props;
+const locale = resolveLocale(Astro.currentLocale);
+const copy = getMessages(locale).pages[route];
+---
+
+<BaseLayout route={route} title={copy.title} description={copy.description}>
+  <PlaceholderPage heading={copy.heading} lead={copy.lead} />
+</BaseLayout>

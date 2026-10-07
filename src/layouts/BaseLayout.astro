@@ -1,38 +1,88 @@
 ---
-import type { PageMeta } from '../lib/site';
-import { canonicalUrl, pageTitle, site } from '../lib/site';
+import BottomNav from '../components/BottomNav.astro';
+import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import ThemeSwitcher from '../components/ThemeSwitcher.astro';
+import TopLogo from '../components/TopLogo.astro';
+import { localeHtml, localeOg } from '../i18n/locales';
+import type { RouteId } from '../i18n/messages';
+import {
+  alternateUrls,
+  canonicalUrl,
+  defaultDescription,
+  pageTitle,
+  resolveLocale,
+  type PageMeta,
+} from '../lib/site';
 
-type Props = PageMeta;
+type Props = PageMeta & {
+  bare?: boolean;
+  route: RouteId;
+};
 
-const { title, description = site.description, path = '/', noindex = false } = Astro.props;
-const fullTitle = pageTitle(title);
-const canonical = canonicalUrl(path);
+const {
+  title,
+  description,
+  route,
+  noindex = false,
+  bare = false,
+} = Astro.props;
+
+const locale = resolveLocale(Astro.currentLocale);
+const desc = description ?? defaultDescription(locale);
+const fullTitle = pageTitle(locale, title);
+const canonical = canonicalUrl(Astro.url.pathname);
+const alternates = alternateUrls(route);
+const ogLocale = localeOg[locale];
+const ogLocaleAlt = locale === 'en' ? localeOg.tr : localeOg.en;
 ---
 
 <!doctype html>
-<html lang={site.language}>
+<html lang={localeHtml[locale]} data-theme="light">
   <head>
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={desc} />
     {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
     <link rel="canonical" href={canonical} />
+    {
+      alternates.map(({ locale: altLocale, href }) => (
+        <link rel="alternate" hreflang={localeHtml[altLocale]} href={href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={alternates.find((a) => a.locale === 'en')?.href} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.name} />
+    <meta property="og:site_name" content="Kiosos" />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={desc} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content={site.locale} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={fullTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={desc} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <slot />
+    <ThemeSwitcher locale={locale} />
+    <LanguageSwitcher locale={locale} route={route} />
+    <TopLogo locale={locale} />
+    <div class="site-shell">
+      <main class:list={['site-main', { 'site-main--bare': bare }]}>
+        <slot />
+      </main>
+      <BottomNav locale={locale} />
+    </div>
   </body>
 </html>
 
@@ -43,11 +93,57 @@ const canonical = canonicalUrl(path);
     box-sizing: border-box;
   }
 
+  :root,
+  [data-theme='light'] {
+    color-scheme: light;
+    --color-bg: #fafafa;
+    --color-text: #0a0a0a;
+    --color-muted: #525252;
+    --color-surface: #ffffff;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-hover: rgba(0, 0, 0, 0.05);
+    --color-active: rgba(0, 0, 0, 0.07);
+    --shadow-float: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-menu: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  [data-theme='dark'] {
+    color-scheme: dark;
+    --color-bg: #0a0a0a;
+    --color-text: #f5f5f5;
+    --color-muted: #a3a3a3;
+    --color-surface: #171717;
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-hover: rgba(255, 255, 255, 0.06);
+    --color-active: rgba(255, 255, 255, 0.1);
+    --shadow-float: 0 4px 24px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-menu: 0 8px 32px rgba(0, 0, 0, 0.55);
+  }
+
   body {
     margin: 0;
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
-    color: #0a0a0a;
-    background: #fafafa;
+    color: var(--color-text);
+    background: var(--color-bg);
+    transition:
+      background 0.25s ease,
+      color 0.25s ease;
+  }
+
+  .site-shell {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 5.5rem;
+  }
+
+  .site-main {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .site-main--bare {
+    /* Empty canvas — logo fixed above. */
   }
 </style>

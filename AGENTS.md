@@ -8,10 +8,18 @@ Marketing site only (**kiosos.com**). Product definition: **kiosos-vault**. Spot
 - Static build → **GitHub Pages** via `.github/workflows/deploy-pages.yml`
 - Do not add Next.js, API routes, or engine dependencies here unless vault scope changes
 
+## i18n (EN + TR)
+
+- **Default English:** `/about` — **Turkish:** `/tr/about`
+- Copy: `src/i18n/messages.ts`; nav: `src/i18n/nav.ts`
+- New route: add `RouteId` + paths in `messages.ts`, EN page under `src/pages/`, TR mirror under `src/pages/tr/`
+- **Engine-related site copy:** write English first, then Turkish in `messages.ts`
+- Vault policy: [localization](https://github.com/oswareTR/kiosos-vault/blob/main/product/localization.md)
+
 ## SEO
 
-- New pages: use `src/layouts/BaseLayout.astro` with `title`, `description`, `path`
-- Site constants: `src/lib/site.ts`
+- Pages use `BaseLayout` with `route` for `hreflang` alternates
+- Site URL helpers: `src/lib/site.ts`
 - Run `npm run build` to verify sitemap generation
 
 ## Docs

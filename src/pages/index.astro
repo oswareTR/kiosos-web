@@ -1,26 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../lib/site';
 ---
 
-<BaseLayout path="/">
-  <main>
-    <h1>{site.name}</h1>
-    <p>{site.description}</p>
-    <p><em>Phase 1 — marketing site scaffold. Content from kiosos-vault comes next.</em></p>
-  </main>
-</BaseLayout>
-
-<style>
-  main {
-    max-width: 42rem;
-    margin: 0 auto;
-    padding: 3rem 1.25rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-</style>
+<BaseLayout route="home" bare />

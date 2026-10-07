@@ -20,6 +20,14 @@ Vault decision [0011](https://github.com/oswareTR/kiosos-vault/blob/main/decisio
 
 Add JSON-LD and per-page meta via layout props as pages grow.
 
+## Languages
+
+- **English (default):** unprefixed routes (`/`, `/about`, …)
+- **Turkish:** `/tr/`, `/tr/about`, …
+- Strings: `src/i18n/messages.ts` — add both locales when introducing copy
+- **EN / TR** switcher top-right; `hreflang` + `x-default` (English) in `BaseLayout`
+- Engine-facing documentation priority is **English** (see kiosos-vault `product/localization.md`)
+
 ## Commands
 
 ```bash

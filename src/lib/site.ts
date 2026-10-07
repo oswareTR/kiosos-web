@@ -1,27 +1,42 @@
-/** Canonical marketing site config (kiosos.com). */
+import { defaultLocale, localeHtml, localeOg, localePath, type Locale } from '../i18n/locales';
+import { getMessages, type RouteId, routePaths } from '../i18n/messages';
+
 export const site = {
   name: 'Kiosos',
-  title: 'Kiosos — satışta yardım',
-  description:
-    'Kiosos, katalog satışları için vektörel satış motoru SaaS. Upsell ve cross-sell için akıllı öneriler — işletmeniz ile ticaret arasında birleşik API.',
   url: 'https://kiosos.com',
-  locale: 'tr_TR',
-  language: 'tr',
 } as const;
 
 export type PageMeta = {
   title?: string;
   description?: string;
-  path?: string;
+  /** Logical route for hreflang alternates. */
+  route?: RouteId;
   noindex?: boolean;
 };
 
-export function pageTitle(title?: string): string {
-  if (!title) return site.title;
+export function resolveLocale(raw: string | undefined): Locale {
+  return raw === 'tr' ? 'tr' : defaultLocale;
+}
+
+export function pageTitle(locale: Locale, title?: string): string {
+  const base = getMessages(locale).site.title;
+  if (!title) return base;
   return `${title} · ${site.name}`;
 }
 
-export function canonicalUrl(path = '/'): string {
+export function defaultDescription(locale: Locale): string {
+  return getMessages(locale).site.description;
+}
+
+export function canonicalUrl(path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   return new URL(normalized, site.url).href;
+}
+
+export function alternateUrls(route: RouteId): { locale: Locale; href: string }[] {
+  const locales: Locale[] = ['en', 'tr'];
+  return locales.map((locale) => ({
+    locale,
+    href: canonicalUrl(localePath(routePaths[route], locale)),
+  }));
 }

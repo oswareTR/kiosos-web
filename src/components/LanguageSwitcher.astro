@@ -1,0 +1,80 @@
+---
+import { localePath, type Locale } from '../i18n/locales';
+import { getMessages } from '../i18n/messages';
+import type { RouteId } from '../i18n/messages';
+import { routePaths } from '../i18n/messages';
+
+type Props = {
+  locale: Locale;
+  route: RouteId;
+};
+
+const { locale, route } = Astro.props;
+const copy = getMessages(locale).locale;
+const path = routePaths[route];
+
+const enHref = localePath(path, 'en');
+const trHref = localePath(path, 'tr');
+---
+
+<div class="lang-switcher" role="navigation" aria-label={copy.switch}>
+  <a
+    href={enHref}
+    class:list={['lang-switcher__link', { 'is-active': locale === 'en' }]}
+    hreflang="en"
+    lang="en"
+  >
+    EN
+  </a>
+  <span class="lang-switcher__sep" aria-hidden="true">/</span>
+  <a
+    href={trHref}
+    class:list={['lang-switcher__link', { 'is-active': locale === 'tr' }]}
+    hreflang="tr"
+    lang="tr"
+  >
+    TR
+  </a>
+</div>
+
+<style>
+  .lang-switcher {
+    position: fixed;
+    z-index: 40;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    box-shadow: var(--shadow-float);
+  }
+
+  .lang-switcher__link {
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 0.15rem 0.25rem;
+    border-radius: 0.35rem;
+  }
+
+  .lang-switcher__link:hover {
+    color: var(--color-text);
+    background: var(--color-hover);
+  }
+
+  .lang-switcher__link.is-active {
+    color: var(--color-text);
+  }
+
+  .lang-switcher__sep {
+    color: var(--color-muted);
+    opacity: 0.6;
+    user-select: none;
+  }
+</style>

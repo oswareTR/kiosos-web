@@ -1,0 +1,113 @@
+---
+import { getMessages } from '../i18n/messages';
+import type { Locale } from '../i18n/locales';
+
+type Props = { locale: Locale };
+
+const { locale } = Astro.props;
+const theme = getMessages(locale).theme;
+---
+
+<button
+  type="button"
+  class="theme-switcher"
+  data-theme-toggle
+  aria-label={theme.toggle}
+  data-label-light={theme.toLight}
+  data-label-dark={theme.toDark}
+>
+  <svg class="theme-switcher__icon theme-switcher__icon--sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.75"></circle>
+    <path
+      stroke="currentColor"
+      stroke-width="1.75"
+      stroke-linecap="round"
+      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+    ></path>
+  </svg>
+  <svg class="theme-switcher__icon theme-switcher__icon--moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path fill="currentColor" d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5Z"></path>
+  </svg>
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const root = document.documentElement;
+
+  const apply = (theme: 'light' | 'dark') => {
+    root.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+    const light = btn?.dataset.labelLight;
+    const dark = btn?.dataset.labelDark;
+    btn?.setAttribute('aria-label', theme === 'dark' ? light ?? 'Light' : dark ?? 'Dark');
+  };
+
+  btn?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    apply(next);
+  });
+
+  if (btn && root.dataset.theme) {
+    apply(root.dataset.theme as 'light' | 'dark');
+  }
+</script>
+
+<style>
+  .theme-switcher {
+    position: fixed;
+    z-index: 40;
+    top: 1.25rem;
+    left: 1.25rem;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    box-shadow: var(--shadow-float);
+    transition:
+      background 0.2s ease,
+      transform 0.15s ease;
+  }
+
+  .theme-switcher:hover {
+    background: var(--color-hover);
+  }
+
+  .theme-switcher:active {
+    transform: scale(0.96);
+  }
+
+  .theme-switcher__icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    grid-area: 1 / 1;
+    transition:
+      opacity 0.25s ease,
+      transform 0.35s ease;
+  }
+
+  .theme-switcher__icon--sun {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+
+  .theme-switcher__icon--moon {
+    opacity: 0;
+    transform: rotate(-30deg) scale(0.85);
+  }
+
+  :global([data-theme='dark']) .theme-switcher__icon--sun {
+    opacity: 0;
+    transform: rotate(30deg) scale(0.85);
+  }
+
+  :global([data-theme='dark']) .theme-switcher__icon--moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+</style>

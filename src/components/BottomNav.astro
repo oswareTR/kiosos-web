@@ -1,0 +1,209 @@
+---
+import { getAllPagesNav, getPagesMenuLabel, getPrimaryNav, getSiteNavLabel } from '../i18n/nav';
+import type { Locale } from '../i18n/locales';
+
+type Props = { locale: Locale };
+
+const { locale } = Astro.props;
+const primaryNav = getPrimaryNav(locale);
+const allPages = getAllPagesNav(locale);
+const pagesMenuLabel = getPagesMenuLabel(locale);
+const siteNavLabel = getSiteNavLabel(locale);
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+function isActive(href: string): boolean {
+  const normalized = href.replace(/\/$/, '') || '/';
+  return normalized === currentPath;
+}
+---
+
+<nav class="bottom-nav" aria-label={siteNavLabel}>
+  <div class="bottom-nav__inner">
+    <ul class="bottom-nav__links" role="list">
+      {
+        primaryNav.map((item) => (
+          <li>
+            <a href={item.href} class:list={['bottom-nav__link', { 'is-active': isActive(item.href) }]}>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="bottom-nav__menu" data-nav-menu>
+      <button
+        type="button"
+        class="bottom-nav__menu-trigger"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-controls="nav-pages-menu"
+        data-nav-menu-trigger
+      >
+        {pagesMenuLabel}
+        <span class="bottom-nav__chevron" aria-hidden="true" />
+      </button>
+      <ul id="nav-pages-menu" class="bottom-nav__dropup" role="menu" hidden data-nav-menu-panel>
+        {
+          allPages.map((item) => (
+            <li role="none">
+              <a
+                href={item.href}
+                role="menuitem"
+                hreflang={item.href.startsWith('/tr') ? 'tr' : 'en'}
+                class:list={['bottom-nav__dropup-link', { 'is-active': isActive(item.href) }]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const root = document.querySelector('[data-nav-menu]');
+  const trigger = document.querySelector<HTMLButtonElement>('[data-nav-menu-trigger]');
+  const panel = document.querySelector<HTMLElement>('[data-nav-menu-panel]');
+
+  if (root && trigger && panel) {
+    const close = () => {
+      panel.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+    };
+
+    const open = () => {
+      panel.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+    };
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (panel.hidden) open();
+      else close();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) close();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+  }
+</script>
+
+<style>
+  .bottom-nav {
+    position: fixed;
+    z-index: 50;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100vw - 1.5rem);
+  }
+
+  .bottom-nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.65rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    box-shadow: var(--shadow-float);
+  }
+
+  .bottom-nav__links {
+    display: none;
+    align-items: center;
+    gap: 0.1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 640px) {
+    .bottom-nav__links {
+      display: flex;
+    }
+  }
+
+  .bottom-nav__link,
+  .bottom-nav__menu-trigger {
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    padding: 0.45rem 0.65rem;
+    border-radius: 999px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .bottom-nav__link:hover,
+  .bottom-nav__menu-trigger:hover {
+    background: var(--color-hover);
+  }
+
+  .bottom-nav__link.is-active,
+  .bottom-nav__dropup-link.is-active {
+    background: var(--color-active);
+    font-weight: 600;
+  }
+
+  .bottom-nav__menu {
+    position: relative;
+  }
+
+  .bottom-nav__menu-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .bottom-nav__chevron {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-135deg);
+    margin-bottom: -0.15rem;
+  }
+
+  .bottom-nav__dropup {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 0.65rem);
+    transform: translateX(-50%);
+    min-width: 11rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-menu);
+  }
+
+  .bottom-nav__dropup-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 0.5rem;
+  }
+
+  .bottom-nav__dropup-link:hover {
+    background: var(--color-hover);
+  }
+</style>
