@@ -35,4 +35,22 @@ Node **≥ 22.12** (see `package.json` `engines`).
 
 Push to **`main`**: [`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml) builds with `npm run build` and publishes **`dist`** to **GitHub Pages**.
 
-In GitHub repo settings: **Pages** → source **GitHub Actions**; set custom domain **kiosos.com** (DNS + `public/CNAME`).
+### GitHub Pages (configured)
+
+| Setting | Value |
+| --- | --- |
+| **Build** | GitHub Actions (`Deploy to GitHub Pages`) |
+| **Default URL** | https://oswaretr.github.io/kiosos-web/ |
+| **Custom domain** | `kiosos.com` (`public/CNAME`) |
+| **Repo visibility** | **Public** (required for Pages on the org’s free plan) |
+
+Settings UI: https://github.com/oswareTR/kiosos-web/settings/pages
+
+### DNS for kiosos.com
+
+At your DNS host, point the apex domain at GitHub Pages (see [GitHub docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)):
+
+- **A** records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+- Or **ALIAS/ANAME** `@` → `oswaretr.github.io` if your provider supports apex CNAME flattening
+
+After DNS propagates, enable **Enforce HTTPS** on the Pages settings page once the domain shows as verified.
