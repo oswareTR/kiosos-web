@@ -1,0 +1,30 @@
+---
+/** Centered Kio mascot on the home page. */
+---
+
+<div class="home-kio">
+  <img class="home-kio__face" src="/kio_face.svg" alt="" width="220" height="200" decoding="async" />
+</div>
+
+<style>
+  .home-kio {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100dvh - 5.5rem - 6rem);
+    padding: 1rem 1.25rem 6rem;
+  }
+
+  .home-kio__face {
+    display: block;
+    width: min(12rem, 55vw);
+    height: auto;
+    max-height: min(11rem, 50vh);
+    object-fit: contain;
+  }
+
+  :global([data-theme='dark']) .home-kio__face {
+    filter: invert(1);
+  }
+</style>

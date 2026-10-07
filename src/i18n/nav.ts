@@ -8,34 +8,59 @@ export type NavItem = {
   route: RouteId;
 };
 
-const primaryRoutes: RouteId[] = ['about', 'product', 'contact'];
-const allRoutes: RouteId[] = ['home', 'about', 'product', 'mission', 'products', 'spot', 'contact'];
+/** Engine, Spot, and product overview. */
+const productMenuRoutes: RouteId[] = ['product', 'products', 'spot'];
+
+/** About, mission, contact — under Other menu. */
+const otherMenuRoutes: RouteId[] = ['about', 'mission', 'contact'];
 
 function labelForRoute(route: RouteId, locale: Locale): string {
   const nav = getMessages(locale).nav;
   return nav[route];
 }
 
-export function getPrimaryNav(locale: Locale): NavItem[] {
-  return primaryRoutes.map((route) => ({
+function itemsForRoutes(routes: RouteId[], locale: Locale): NavItem[] {
+  return routes.map((route) => ({
     route,
     href: localePath(routePaths[route], locale),
     label: labelForRoute(route, locale),
   }));
 }
 
-export function getAllPagesNav(locale: Locale): NavItem[] {
-  return allRoutes.map((route) => ({
-    route,
-    href: localePath(routePaths[route], locale),
-    label: labelForRoute(route, locale),
-  }));
+export function getHomeNavItem(locale: Locale): NavItem {
+  return {
+    route: 'home',
+    href: localePath(routePaths.home, locale),
+    label: labelForRoute('home', locale),
+  };
 }
 
-export function getPagesMenuLabel(locale: Locale): string {
-  return getMessages(locale).nav.pages;
+export function getProductsNav(locale: Locale): NavItem[] {
+  return itemsForRoutes(productMenuRoutes, locale);
+}
+
+export function getOtherNav(locale: Locale): NavItem[] {
+  return itemsForRoutes(otherMenuRoutes, locale);
+}
+
+export function getProductsMenuLabel(locale: Locale): string {
+  return getMessages(locale).nav.productsMenu;
+}
+
+export function getOtherMenuLabel(locale: Locale): string {
+  return getMessages(locale).nav.otherMenu;
 }
 
 export function getSiteNavLabel(locale: Locale): string {
   return getMessages(locale).nav.site;
 }
+
+export function isProductRoute(route: RouteId): boolean {
+  return productMenuRoutes.includes(route);
+}
+
+/** @deprecated use getOtherNav */
+export const getPagesNav = getOtherNav;
+
+/** @deprecated use getOtherMenuLabel */
+export const getPagesMenuLabel = getOtherMenuLabel;

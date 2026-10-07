@@ -1,13 +1,22 @@
 ---
-import { getAllPagesNav, getPagesMenuLabel, getPrimaryNav, getSiteNavLabel } from '../i18n/nav';
+import {
+  getHomeNavItem,
+  getOtherMenuLabel,
+  getOtherNav,
+  getProductsMenuLabel,
+  getProductsNav,
+  getSiteNavLabel,
+} from '../i18n/nav';
 import type { Locale } from '../i18n/locales';
 
 type Props = { locale: Locale };
 
 const { locale } = Astro.props;
-const primaryNav = getPrimaryNav(locale);
-const allPages = getAllPagesNav(locale);
-const pagesMenuLabel = getPagesMenuLabel(locale);
+const homeNav = getHomeNavItem(locale);
+const productsNav = getProductsNav(locale);
+const otherNav = getOtherNav(locale);
+const productsMenuLabel = getProductsMenuLabel(locale);
+const otherMenuLabel = getOtherMenuLabel(locale);
 const siteNavLabel = getSiteNavLabel(locale);
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -16,21 +25,52 @@ function isActive(href: string): boolean {
   const normalized = href.replace(/\/$/, '') || '/';
   return normalized === currentPath;
 }
+
+function isHomeActive(): boolean {
+  return currentPath === '/' || currentPath === '/tr';
+}
+
+const productsMenuActive = productsNav.some((item) => isActive(item.href));
 ---
 
 <nav class="bottom-nav" aria-label={siteNavLabel}>
   <div class="bottom-nav__inner">
-    <ul class="bottom-nav__links" role="list">
-      {
-        primaryNav.map((item) => (
-          <li>
-            <a href={item.href} class:list={['bottom-nav__link', { 'is-active': isActive(item.href) }]}>
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+    <a
+      href={homeNav.href}
+      class:list={['bottom-nav__link', 'bottom-nav__home', { 'is-active': isHomeActive() }]}
+    >
+      {homeNav.label}
+    </a>
+
+    <div class="bottom-nav__menu" data-nav-menu>
+      <button
+        type="button"
+        class:list={['bottom-nav__menu-trigger', { 'is-active': productsMenuActive }]}
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-controls="nav-products-menu"
+        data-nav-menu-trigger
+      >
+        {productsMenuLabel}
+        <span class="bottom-nav__chevron" aria-hidden="true" />
+      </button>
+      <ul id="nav-products-menu" class="bottom-nav__dropup" role="menu" hidden data-nav-menu-panel>
+        {
+          productsNav.map((item) => (
+            <li role="none">
+              <a
+                href={item.href}
+                role="menuitem"
+                hreflang={item.href.startsWith('/tr') ? 'tr' : 'en'}
+                class:list={['bottom-nav__dropup-link', { 'is-active': isActive(item.href) }]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
 
     <div class="bottom-nav__menu" data-nav-menu>
       <button
@@ -41,12 +81,12 @@ function isActive(href: string): boolean {
         aria-controls="nav-pages-menu"
         data-nav-menu-trigger
       >
-        {pagesMenuLabel}
+        {otherMenuLabel}
         <span class="bottom-nav__chevron" aria-hidden="true" />
       </button>
       <ul id="nav-pages-menu" class="bottom-nav__dropup" role="menu" hidden data-nav-menu-panel>
         {
-          allPages.map((item) => (
+          otherNav.map((item) => (
             <li role="none">
               <a
                 href={item.href}
@@ -65,35 +105,63 @@ function isActive(href: string): boolean {
 </nav>
 
 <script>
-  const root = document.querySelector('[data-nav-menu]');
-  const trigger = document.querySelector<HTMLButtonElement>('[data-nav-menu-trigger]');
-  const panel = document.querySelector<HTMLElement>('[data-nav-menu-panel]');
+  const menus = document.querySelectorAll<HTMLElement>('[data-nav-menu]');
 
-  if (root && trigger && panel) {
+  menus.forEach((root) => {
+    const trigger = root.querySelector<HTMLButtonElement>('[data-nav-menu-trigger]');
+    const panel = root.querySelector<HTMLElement>('[data-nav-menu-panel]');
+    if (!trigger || !panel) return;
+
     const close = () => {
       panel.hidden = true;
       trigger.setAttribute('aria-expanded', 'false');
     };
 
-    const open = () => {
-      panel.hidden = false;
-      trigger.setAttribute('aria-expanded', 'true');
+    const closeAll = () => {
+      menus.forEach((other) => {
+        const t = other.querySelector<HTMLButtonElement>('[data-nav-menu-trigger]');
+        const p = other.querySelector<HTMLElement>('[data-nav-menu-panel]');
+        if (t && p) {
+          p.hidden = true;
+          t.setAttribute('aria-expanded', 'false');
+        }
+      });
     };
 
     trigger.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (panel.hidden) open();
-      else close();
+      const wasOpen = !panel.hidden;
+      closeAll();
+      if (!wasOpen) {
+        panel.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+      }
     });
+  });
 
-    document.addEventListener('click', (e) => {
-      if (!root.contains(e.target as Node)) close();
+  document.addEventListener('click', () => {
+    menus.forEach((root) => {
+      const trigger = root.querySelector<HTMLButtonElement>('[data-nav-menu-trigger]');
+      const panel = root.querySelector<HTMLElement>('[data-nav-menu-panel]');
+      if (trigger && panel) {
+        panel.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+      }
     });
+  });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') close();
-    });
-  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      menus.forEach((root) => {
+        const trigger = root.querySelector<HTMLButtonElement>('[data-nav-menu-trigger]');
+        const panel = root.querySelector<HTMLElement>('[data-nav-menu-panel]');
+        if (trigger && panel) {
+          panel.hidden = true;
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  });
 </script>
 
 <style>
@@ -118,19 +186,8 @@ function isActive(href: string): boolean {
     box-shadow: var(--shadow-float);
   }
 
-  .bottom-nav__links {
-    display: none;
-    align-items: center;
-    gap: 0.1rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  @media (min-width: 640px) {
-    .bottom-nav__links {
-      display: flex;
-    }
+  .bottom-nav__home {
+    flex-shrink: 0;
   }
 
   .bottom-nav__link,
@@ -154,6 +211,7 @@ function isActive(href: string): boolean {
   }
 
   .bottom-nav__link.is-active,
+  .bottom-nav__menu-trigger.is-active,
   .bottom-nav__dropup-link.is-active {
     background: var(--color-active);
     font-weight: 600;

@@ -30,7 +30,8 @@ type Messages = {
   site: { title: string; description: string };
   nav: {
     site: string;
-    pages: string;
+    otherMenu: string;
+    productsMenu: string;
     home: string;
     about: string;
     product: string;
@@ -54,7 +55,8 @@ export const messages: Record<Locale, Messages> = {
     },
     nav: {
       site: 'Site',
-      pages: 'Pages',
+      otherMenu: 'Other',
+      productsMenu: 'Products',
       home: 'Home',
       about: 'About',
       product: 'What is Kiosos?',
@@ -121,7 +123,8 @@ export const messages: Record<Locale, Messages> = {
     },
     nav: {
       site: 'Site',
-      pages: 'Sayfalar',
+      otherMenu: 'Diğer',
+      productsMenu: 'Ürünler',
       home: 'Ana sayfa',
       about: 'Hakkımızda',
       product: 'Kiosos nedir?',
