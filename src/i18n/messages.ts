@@ -19,13 +19,6 @@ export const routePaths: Record<RouteId, string> = {
   contact: '/contact',
 };
 
-type PageCopy = {
-  title: string;
-  description: string;
-  heading: string;
-  lead: string;
-};
-
 type NotFoundCopy = {
   title: string;
   description: string;
@@ -52,13 +45,12 @@ type Messages = {
   theme: { toggle: string; toLight: string; toDark: string };
   locale: { switch: string; en: string; tr: string };
   logo: { home: string };
-  pages: Record<Exclude<RouteId, 'home'>, PageCopy>;
 };
 
 export const messages: Record<Locale, Messages> = {
   en: {
     site: {
-      title: 'Kiosos — here to help you sell',
+      title: 'Kiosos — to help you sell',
       description:
         'Kiosos is a vector sales-engine SaaS: smart upsell and cross-sell recommendations — a unified API between your catalog and commerce.',
     },
@@ -91,46 +83,6 @@ export const messages: Record<Locale, Messages> = {
       heading: '404',
       lead: 'This page doesn’t exist or was moved.',
       cta: 'Back to home',
-    },
-    pages: {
-      about: {
-        title: 'About',
-        description: 'About Kiosos — coming soon.',
-        heading: 'About us',
-        lead: 'Who we are — content coming soon.',
-      },
-      product: {
-        title: 'Kiosos Engine',
-        description: 'Vector sales-engine — coming soon.',
-        heading: 'Kiosos Engine',
-        lead: 'Sales-engine API — content coming soon.',
-      },
-      mission: {
-        title: 'Mission',
-        description: 'Kiosos mission — coming soon.',
-        heading: 'Mission',
-        lead: 'Here to help you sell — content coming soon.',
-      },
-      spot: {
-        title: 'Kiosos Spot',
-        description: 'QR menu and loyalty — coming soon.',
-        heading: 'Kiosos Spot',
-        lead: 'QR menu and loyalty program — content coming soon.',
-      },
-      kiosk: {
-        title: 'Kiosos Kiosk',
-        description:
-          'In-venue kiosk powered by the Kiosos sales-engine — upsell and cross-sell where guests buy.',
-        heading: 'Kiosos Kiosk',
-        lead:
-          'Same tier as our Shopify plugin: an in-venue kiosk on the Kiosos engine so upsell and cross-sell happen where guests buy — content coming soon.',
-      },
-      contact: {
-        title: 'Contact',
-        description: 'Contact Kiosos — coming soon.',
-        heading: 'Contact',
-        lead: 'contact@kiosos.com — form coming soon.',
-      },
     },
   },
   tr: {
@@ -168,46 +120,6 @@ export const messages: Record<Locale, Messages> = {
       heading: '404',
       lead: 'Bu sayfa yok veya taşınmış olabilir.',
       cta: 'Ana sayfaya dön',
-    },
-    pages: {
-      about: {
-        title: 'Hakkımızda',
-        description: 'Kiosos hakkında — yakında.',
-        heading: 'Hakkımızda',
-        lead: 'Biz kimiz — içerik yakında.',
-      },
-      product: {
-        title: 'Kiosos Engine',
-        description: 'Vektörel satış motoru — yakında.',
-        heading: 'Kiosos Engine',
-        lead: 'Satış motoru API’si — içerik yakında.',
-      },
-      mission: {
-        title: 'Misyon',
-        description: 'Kiosos misyonu — yakında.',
-        heading: 'Misyon',
-        lead: 'Satışta yardım — içerik yakında.',
-      },
-      spot: {
-        title: 'Kiosos Spot',
-        description: 'QR menü ve sadakat — yakında.',
-        heading: 'Kiosos Spot',
-        lead: 'QR menü ve sadakat programı — içerik yakında.',
-      },
-      kiosk: {
-        title: 'Kiosos Kiosk',
-        description:
-          'Mekânda Kiosos satış motoru destekli kiosk — upsell ve cross-sell satış anında.',
-        heading: 'Kiosos Kiosk',
-        lead:
-          'Shopify eklentisi ile aynı seviyede ürün: Kiosos motorunu mekânda kioskta sunun; upsell ve cross-sell satış anında — içerik yakında.',
-      },
-      contact: {
-        title: 'İletişim',
-        description: 'Kiosos ile iletişim — yakında.',
-        heading: 'İletişim',
-        lead: 'contact@kiosos.com — form yakında.',
-      },
     },
   },
 };

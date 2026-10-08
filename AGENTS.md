@@ -11,7 +11,7 @@ Marketing site only (**kiosos.com**). Product definition: **kiosos-vault**. Spot
 ## i18n (EN + TR)
 
 - **Default English:** `/about` — **Turkish:** `/tr/about`
-- Copy: `src/i18n/messages.ts`; nav: `src/i18n/nav.ts`
+- Copy: nav/site strings in `src/i18n/messages.ts`; page bodies in `src/i18n/pageCopy.ts`; nav: `src/i18n/nav.ts`
 - New route: add `RouteId` + paths in `messages.ts`, EN page under `src/pages/`, TR mirror under `src/pages/tr/`
 - **Engine-related site copy:** write English first, then Turkish in `messages.ts`
 - Vault policy: [localization](https://github.com/oswareTR/kiosos-vault/blob/main/product/localization.md)

@@ -34,6 +34,15 @@ const canonical = canonicalUrl(Astro.url.pathname);
 const alternates = alternateUrls(route);
 const ogLocale = localeOg[locale];
 const ogLocaleAlt = locale === 'en' ? localeOg.tr : localeOg.en;
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Kiosos',
+  url: 'https://kiosos.com',
+  email: 'contact@kiosos.com',
+  description: defaultDescription(locale),
+};
 ---
 
 <!doctype html>
@@ -72,6 +81,7 @@ const ogLocaleAlt = locale === 'en' ? localeOg.tr : localeOg.en;
     <meta name="twitter:description" content={desc} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
   </head>
   <body>
     <ThemeSwitcher locale={locale} />

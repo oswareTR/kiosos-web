@@ -1,8 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HomeKio from '../components/HomeKio.astro';
+import HomeLanding from '../components/HomeLanding.astro';
+import { getHomeCopy, slogan } from '../i18n/pageCopy';
+import { resolveLocale } from '../lib/site';
+
+const locale = resolveLocale(Astro.currentLocale);
+const home = getHomeCopy(locale);
 ---
 
-<BaseLayout route="home" bare>
-  <HomeKio />
+<BaseLayout route="home" description={`${slogan[locale]} ${home.intro}`} bare>
+  <HomeLanding locale={locale} />
 </BaseLayout>
