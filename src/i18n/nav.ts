@@ -8,8 +8,8 @@ export type NavItem = {
   route: RouteId;
 };
 
-/** Engine, Spot, and product overview. */
-const productMenuRoutes: RouteId[] = ['product', 'spot'];
+/** Engine, Spot (Group 1), Kiosk (Group 2), and product overview. */
+const productMenuRoutes: RouteId[] = ['product', 'spot', 'kiosk'];
 
 /** About, mission, contact — under Other menu. */
 const otherMenuRoutes: RouteId[] = ['about', 'mission', 'contact'];

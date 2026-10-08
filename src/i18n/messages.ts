@@ -6,6 +6,7 @@ export type RouteId =
   | 'product'
   | 'mission'
   | 'spot'
+  | 'kiosk'
   | 'contact';
 
 export const routePaths: Record<RouteId, string> = {
@@ -14,6 +15,7 @@ export const routePaths: Record<RouteId, string> = {
   product: '/product',
   mission: '/mission',
   spot: '/spot',
+  kiosk: '/kiosk',
   contact: '/contact',
 };
 
@@ -44,6 +46,7 @@ type Messages = {
     product: string;
     mission: string;
     spot: string;
+    kiosk: string;
     contact: string;
   };
   theme: { toggle: string; toLight: string; toDark: string };
@@ -68,6 +71,7 @@ export const messages: Record<Locale, Messages> = {
       product: 'Kiosos Engine',
       mission: 'Mission',
       spot: 'Kiosos Spot',
+      kiosk: 'Kiosos Kiosk',
       contact: 'Contact',
     },
     theme: {
@@ -113,6 +117,14 @@ export const messages: Record<Locale, Messages> = {
         heading: 'Kiosos Spot',
         lead: 'QR menu and loyalty program — content coming soon.',
       },
+      kiosk: {
+        title: 'Kiosos Kiosk',
+        description:
+          'In-venue kiosk powered by the Kiosos sales-engine — upsell and cross-sell where guests buy.',
+        heading: 'Kiosos Kiosk',
+        lead:
+          'Same tier as our Shopify plugin: an in-venue kiosk on the Kiosos engine so upsell and cross-sell happen where guests buy — content coming soon.',
+      },
       contact: {
         title: 'Contact',
         description: 'Contact Kiosos — coming soon.',
@@ -136,6 +148,7 @@ export const messages: Record<Locale, Messages> = {
       product: 'Kiosos Engine',
       mission: 'Misyon',
       spot: 'Kiosos Spot',
+      kiosk: 'Kiosos Kiosk',
       contact: 'İletişim',
     },
     theme: {
@@ -180,6 +193,14 @@ export const messages: Record<Locale, Messages> = {
         description: 'QR menü ve sadakat — yakında.',
         heading: 'Kiosos Spot',
         lead: 'QR menü ve sadakat programı — içerik yakında.',
+      },
+      kiosk: {
+        title: 'Kiosos Kiosk',
+        description:
+          'Mekânda Kiosos satış motoru destekli kiosk — upsell ve cross-sell satış anında.',
+        heading: 'Kiosos Kiosk',
+        lead:
+          'Shopify eklentisi ile aynı seviyede ürün: Kiosos motorunu mekânda kioskta sunun; upsell ve cross-sell satış anında — içerik yakında.',
       },
       contact: {
         title: 'İletişim',
