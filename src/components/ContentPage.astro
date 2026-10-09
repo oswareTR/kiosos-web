@@ -1,4 +1,5 @@
 ---
+import SosText from './SosText.astro';
 import { localePath } from '../i18n/locales';
 import { routePaths } from '../i18n/messages';
 import { slogan, type RichPageCopy } from '../i18n/pageCopy';
@@ -33,14 +34,26 @@ const jsonLd = {
 
   <header class="stage">
     <img class="mark" src="/kio_face.svg" alt="" width="120" height="110" decoding="async" />
-    <p class="slogan">{line}</p>
-    <h1>{copy.heading}</h1>
-    <p class="display">{copy.tagline}</p>
+    <p class="slogan">
+      <SosText text={line} />
+    </p>
+    <h1>
+      <SosText text={copy.heading} />
+    </h1>
+    <p class="display">
+      <SosText text={copy.tagline} />
+    </p>
     {
-      copy.contactEmail && (
-        <a class="mail" href={`mailto:${copy.contactEmail}`}>
-          {copy.contactEmail}
-        </a>
+      copy.contactLinks && copy.contactLinks.length > 0 && (
+        <ul class="reach">
+          {copy.contactLinks.map((item) => (
+            <li>
+              <a class="reach__link" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       )
     }
   </header>
@@ -54,14 +67,30 @@ const jsonLd = {
       >
         <div class="band__inner">
           <p class="kicker">{section.kicker}</p>
-          <h2 id={`${section.id}-heading`}>{section.statement}</h2>
-          {section.body && <p class="body">{section.body}</p>}
+          <h2 id={`${section.id}-heading`}>
+            {section.statementHref ? (
+              <a class="statement-link" href={section.statementHref}>
+                <SosText text={section.statement} />
+              </a>
+            ) : (
+              <SosText text={section.statement} />
+            )}
+          </h2>
+          {section.body && (
+            <p class="body">
+              <SosText text={section.body} />
+            </p>
+          )}
           {section.points && section.points.length > 0 && (
             <ul class="points">
               {section.points.map((point) => (
                 <li>
-                  <p class="points__title">{point.title}</p>
-                  <p class="points__text">{point.text}</p>
+                  <p class="points__title">
+                    <SosText text={point.title} />
+                  </p>
+                  <p class="points__text">
+                    <SosText text={point.text} />
+                  </p>
                 </li>
               ))}
             </ul>
@@ -74,7 +103,9 @@ const jsonLd = {
   {
     copy.ctas && copy.ctas.length > 0 && (
       <footer class="close">
-        <p class="slogan">{line}</p>
+        <p class="slogan">
+          <SosText text={line} />
+        </p>
         <nav aria-label={locale === 'tr' ? 'İlgili sayfalar' : 'Related pages'}>
           {copy.ctas.map((cta) => (
             <a href={localePath(routePaths[cta.route], locale)}>{cta.label}</a>
@@ -146,19 +177,38 @@ const jsonLd = {
     color: var(--color-muted);
   }
 
-  .mail {
-    margin-top: 1.25rem;
+  .reach {
+    list-style: none;
+    margin: 1.35rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .reach__link {
     font-size: clamp(1.15rem, 2.4vw, 1.5rem);
     font-weight: 500;
     letter-spacing: -0.03em;
-    color: var(--color-text);
+    color: var(--color-sos);
     text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 0.15rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-sos) 45%, transparent);
+    padding-bottom: 0.12rem;
   }
 
-  .mail:hover {
-    border-bottom-color: var(--color-text);
+  .reach__link:hover {
+    border-bottom-color: var(--color-sos);
+  }
+
+  .statement-link {
+    color: var(--color-sos);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in srgb, var(--color-sos) 55%, transparent);
+  }
+
+  .statement-link:hover {
+    border-bottom-color: var(--color-sos);
   }
 
   .band {

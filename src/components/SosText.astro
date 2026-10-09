@@ -1,0 +1,18 @@
+---
+type Props = { text: string };
+
+const { text } = Astro.props;
+const parts = text.split(/(sos)/i);
+---
+
+{
+  parts.map((part) =>
+    part.toLowerCase() === 'sos' ? <span class="sos">{part}</span> : part,
+  )
+}
+
+<style>
+  .sos {
+    color: var(--color-sos);
+  }
+</style>

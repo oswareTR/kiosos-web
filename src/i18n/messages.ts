@@ -52,7 +52,7 @@ export const messages: Record<Locale, Messages> = {
     site: {
       title: 'Kiosos — to help you sell',
       description:
-        'Kiosos is a vector sales-engine SaaS: smart upsell and cross-sell recommendations — a unified API between your catalog and commerce.',
+        'Kiosos helps you sell the next product — in the shop, at the table, and at the counter.',
     },
     nav: {
       site: 'Site',
@@ -60,10 +60,10 @@ export const messages: Record<Locale, Messages> = {
       productsMenu: 'Products',
       home: 'Home',
       about: 'About',
-      product: 'Kiosos Engine',
+      product: 'Sales help',
       mission: 'Mission',
-      spot: 'Kiosos Spot',
-      kiosk: 'Kiosos Kiosk',
+      spot: 'Spot',
+      kiosk: 'Kiosk',
       contact: 'Contact',
     },
     theme: {
@@ -89,7 +89,7 @@ export const messages: Record<Locale, Messages> = {
     site: {
       title: 'Kiosos — satışta yardım',
       description:
-        'Kiosos, katalog satışları için vektörel satış motoru SaaS. Upsell ve cross-sell için akıllı öneriler — katalog ile ticaret arasında birleşik API.',
+        'Kiosos satışta yardım eder — mağazada, masada ve tezgâhta sıradaki ürün.',
     },
     nav: {
       site: 'Site',
@@ -97,10 +97,10 @@ export const messages: Record<Locale, Messages> = {
       productsMenu: 'Ürünler',
       home: 'Ana sayfa',
       about: 'Hakkımızda',
-      product: 'Kiosos Engine',
+      product: 'Satış yardımı',
       mission: 'Misyon',
-      spot: 'Kiosos Spot',
-      kiosk: 'Kiosos Kiosk',
+      spot: 'Spot',
+      kiosk: 'Kiosk',
       contact: 'İletişim',
     },
     theme: {

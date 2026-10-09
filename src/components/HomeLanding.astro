@@ -1,21 +1,20 @@
 ---
 import { localePath } from '../i18n/locales';
 import { routePaths } from '../i18n/messages';
-import { getHomeCopy, slogan } from '../i18n/pageCopy';
+import { getHomeCopy } from '../i18n/pageCopy';
 import type { Locale } from '../i18n/locales';
 
 type Props = { locale: Locale };
 
 const { locale } = Astro.props;
 const copy = getHomeCopy(locale);
-const line = slogan[locale];
 
 const homeLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Kiosos',
   url: 'https://kiosos.com',
-  description: line,
+  description: copy.description,
   inLanguage: locale === 'tr' ? 'tr' : 'en',
 };
 ---
@@ -32,8 +31,7 @@ const homeLd = {
       fetchpriority="high"
     />
     <h1>
-      <span class="brand">{copy.brand}</span>
-      <span class="line">{copy.headline}</span>
+      {copy.headlineBefore}<span class="accent">{copy.headlineAccent}</span>{copy.headlineAfter}
     </h1>
     <p class="lede">{copy.intro}</p>
   </header>
@@ -61,7 +59,6 @@ const homeLd = {
   </section>
 
   <footer class="close">
-    <p class="slogan">{line}</p>
     <a class="mission" href={localePath(routePaths.mission, locale)}>{copy.missionLinkLabel}</a>
   </footer>
 </div>
@@ -102,24 +99,15 @@ const homeLd = {
 
   h1 {
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.15rem;
+    max-width: 11ch;
+    font-size: clamp(2.75rem, 8vw, 5rem);
     font-weight: 600;
-    letter-spacing: -0.05em;
-    line-height: 0.95;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
   }
 
-  .brand {
-    font-size: clamp(3.25rem, 10vw, 6.5rem);
-  }
-
-  .line {
-    font-size: clamp(1.65rem, 4.2vw, 2.75rem);
-    font-weight: 500;
-    letter-spacing: -0.035em;
-    color: var(--color-muted);
+  .accent {
+    color: var(--color-sos);
   }
 
   .lede {
@@ -165,6 +153,7 @@ const homeLd = {
   }
 
   li a:hover .title {
+    color: var(--color-sos);
     letter-spacing: -0.035em;
   }
 
@@ -214,24 +203,16 @@ const homeLd = {
     padding: 4.5rem 0 1rem;
   }
 
-  .slogan {
-    margin: 0;
-    font-size: clamp(1.35rem, 3vw, 1.85rem);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-  }
-
   .mission {
     font-size: 0.9375rem;
     font-weight: 500;
-    color: var(--color-muted);
+    color: var(--color-sos);
     text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-sos) 45%, transparent);
     padding-bottom: 0.1rem;
   }
 
   .mission:hover {
-    color: var(--color-text);
-    border-bottom-color: var(--color-text);
+    border-bottom-color: var(--color-sos);
   }
 </style>

@@ -40,7 +40,24 @@ const organizationLd = {
   '@type': 'Organization',
   name: 'Kiosos',
   url: 'https://kiosos.com',
-  email: 'contact@kiosos.com',
+  email: 'contact@osware.org',
+  telephone: '+905514695665',
+  sameAs: ['https://osware.org'],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      email: 'contact@osware.org',
+      telephone: '+90-551-469-5665',
+      contactType: 'customer support',
+      url: 'https://osware.org',
+      availableLanguage: ['English', 'Turkish'],
+    },
+    {
+      '@type': 'ContactPoint',
+      email: 'contact@kiosos.com',
+      contactType: 'customer support',
+    },
+  ],
   description: defaultDescription(locale),
 };
 ---
@@ -112,6 +129,7 @@ const organizationLd = {
     --color-border: rgba(0, 0, 0, 0.08);
     --color-hover: rgba(0, 0, 0, 0.05);
     --color-active: rgba(0, 0, 0, 0.07);
+    --color-sos: #c8102e;
     --shadow-float: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
     --shadow-menu: 0 8px 32px rgba(0, 0, 0, 0.12);
   }
@@ -125,6 +143,7 @@ const organizationLd = {
     --color-border: rgba(255, 255, 255, 0.1);
     --color-hover: rgba(255, 255, 255, 0.06);
     --color-active: rgba(255, 255, 255, 0.1);
+    --color-sos: #ff5a5f;
     --shadow-float: 0 4px 24px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-menu: 0 8px 32px rgba(0, 0, 0, 0.55);
   }

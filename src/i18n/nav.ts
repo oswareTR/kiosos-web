@@ -8,7 +8,7 @@ export type NavItem = {
   route: RouteId;
 };
 
-/** Engine, Spot (Group 1), Kiosk (Group 2), and product overview. */
+/** Sales help, Spot, and Kiosk. */
 const productMenuRoutes: RouteId[] = ['product', 'spot', 'kiosk'];
 
 /** About, mission, contact — under Other menu. */

@@ -16,6 +16,7 @@ export type ContentSection = {
   id: string;
   kicker: string;
   statement: string;
+  statementHref?: string;
   body?: string;
   points?: Point[];
 };
@@ -25,6 +26,11 @@ export type PageCta = {
   route: RouteId;
 };
 
+export type ContactLink = {
+  label: string;
+  href: string;
+};
+
 export type RichPageCopy = {
   title: string;
   description: string;
@@ -32,181 +38,191 @@ export type RichPageCopy = {
   tagline: string;
   sections: ContentSection[];
   ctas?: PageCta[];
-  contactEmail?: string;
+  contactLinks?: ContactLink[];
 };
 
 export type HomeCopy = {
-  brand: string;
-  headline: string;
+  description: string;
+  headlineBefore: string;
+  headlineAccent: string;
+  headlineAfter: string;
   intro: string;
   exploreLabel: string;
   cards: { route: RouteId; kicker: string; title: string; blurb: string }[];
   missionLinkLabel: string;
 };
 
+const contactLinks: ContactLink[] = [
+  { label: 'contact@osware.org', href: 'mailto:contact@osware.org' },
+  { label: 'contact@kiosos.com', href: 'mailto:contact@kiosos.com' },
+  { label: 'osware.org', href: 'https://osware.org' },
+  { label: '+90 551 469 5665', href: 'tel:+905514695665' },
+];
+
 const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   product: {
-    title: 'Kiosos Engine',
+    title: 'Sales help',
     description:
-      'Kiosos Engine is a vector sales-engine API for upsell and cross-sell: catalog embeddings, smart retrieval, and ranked recommendations between your products and checkout.',
-    heading: 'Kiosos Engine',
-    tagline: 'The next item. At the right moment.',
+      'Sales help suggests the next product while someone is buying — a stronger offer, or something that goes with what they already chose.',
+    heading: 'Sales help',
+    tagline: 'The next product. At the right moment.',
     sections: [
       {
         id: 'problem',
         kicker: 'The gap',
-        statement: 'You have a catalog. You need the sale that follows.',
-        body: 'Large retailers spend years on attach rate and basket size. Kiosos is that layer as an API — between your products and every commerce surface you already run.',
+        statement: 'You have the products. The next sale is harder.',
+        body: 'Big shops spend years on the extra item in the basket. We do that job for you — between what you sell and the shop you already run.',
       },
       {
         id: 'what',
         kicker: 'How it works',
-        statement: 'Embed. Retrieve. Recommend.',
-        body: 'A vector sales-engine, not a chatbot and not open-web search. Catalog and session context go in. Ranked suggestions come out.',
+        statement: 'See the moment. Suggest the product.',
+        body: 'Not a chat box, and not a web search. We look at what the customer is doing and offer the product that fits.',
         points: [
-          { title: 'Embed', text: 'Name, category, description, price, and the attributes you already keep.' },
-          { title: 'Retrieve', text: 'Vector search with ranking built for sales — not nearest-neighbor alone.' },
-          { title: 'Decide', text: 'AI-assisted flows that turn a real task into a recommendation.' },
+          { title: 'What we read', text: 'Name, type, description, price, and the details you already keep.' },
+          { title: 'What you get', text: 'A short list, in the order most likely to sell.' },
+          { title: 'The moment', text: 'The basket, or one product in hand, turned into a suggestion.' },
         ],
       },
       {
         id: 'intents',
-        kicker: 'The API',
-        statement: 'Ask for the sale. Get the list.',
+        kicker: 'What you can ask',
+        statement: 'Ask for the sale. Get a short list.',
         points: [
-          { title: 'Cart', text: 'Items in the basket — five recommendations on the purchase screen.' },
-          { title: 'Upsell', text: 'One product in hand — the strongest next offer, plus related cross-sells.' },
+          { title: 'Basket', text: 'What they already chose — a few suggestions before they pay.' },
+          { title: 'A better offer', text: 'One product in hand — a stronger choice, plus things that go with it.' },
         ],
       },
       {
         id: 'boundary',
-        kicker: 'The boundary',
-        statement: 'We help you sell what you already carry.',
-        body: 'You keep the system of record for products and orders. Kiosos stays the intelligence layer.',
+        kicker: 'The line',
+        statement: 'We help you sell what you already have.',
+        body: 'You keep the record of products and orders. We only help with the suggestion.',
         points: [
-          { title: 'Is', text: 'Sales-specialized retrieval and ranking over catalogs.' },
-          { title: 'Isn’t', text: 'Your ERP, a full storefront, or generic web search.' },
+          { title: 'We do', text: 'Pick the next product to offer.' },
+          { title: 'We don’t', text: 'Run your books, replace your shop, or search the open web.' },
         ],
       },
     ],
     ctas: [
-      { label: 'Kiosos Spot', route: 'spot' },
-      { label: 'Kiosos Kiosk', route: 'kiosk' },
+      { label: 'Spot', route: 'spot' },
+      { label: 'Kiosk', route: 'kiosk' },
       { label: 'Talk to us', route: 'contact' },
     ],
   },
   spot: {
-    title: 'Kiosos Spot',
+    title: 'Spot',
     description:
-      'Kiosos Spot is QR menu and loyalty in one monthly SaaS for cafés and venues at spot.kiosos.com — built to grow with the Kiosos sales-engine.',
-    heading: 'Kiosos Spot',
+      'Spot is a QR menu and loyalty, together, for cafés and similar places. Guests order at spot.kiosos.com.',
+    heading: 'Spot',
     tagline: 'Scan. Order. Come back.',
     sections: [
       {
         id: 'bundle',
         kicker: 'One product',
-        statement: 'Menu and loyalty. Same venue. Same guest.',
-        body: 'A single subscription for hospitality — cafés first. Not a menu app plus a stamps app.',
+        statement: 'Menu and loyalty. Same place. Same guest.',
+        body: 'One monthly plan for cafés first. Not a menu app plus a stamp app.',
         points: [
-          { title: 'QR menu', text: 'Guests scan, browse the catalog, and order from the table.' },
-          { title: 'Loyalty', text: 'Stamps, rewards, and return visits tied to the same place.' },
+          { title: 'QR menu', text: 'Guests scan, look through the products, and order from the table.' },
+          { title: 'Loyalty', text: 'Stamps, rewards, and return visits, tied to the same place.' },
         ],
       },
       {
         id: 'saas',
         kicker: 'How you buy it',
-        statement: 'Monthly packs. Predictable from day one.',
-        body: 'Recurring SaaS with tiers for venues and growth. Pricing lands with the product — the shape is subscription, not a one-off build.',
+        statement: 'A monthly plan. Clear from day one.',
+        body: 'You pay each month, with room to grow. The price comes with the product — a subscription, not a one-off project.',
       },
       {
         id: 'bridge',
         kicker: 'Why it exists',
-        statement: 'A real venue now. A smarter catalog later.',
-        body: 'Spot is the cash-flow bridge while the engine matures. Menus, orders, and loyalty are modeled so they can feed Kiosos Engine — even before the first API call.',
+        statement: 'A real place today. Smarter selling later.',
+        body: 'Spot pays its way while sales help grows up. Menus, orders, and loyalty are set up so that help can use them later.',
       },
       {
         id: 'where',
         kicker: 'Where it lives',
         statement: 'spot.kiosos.com',
-        body: 'Trust and story stay on kiosos.com. Operators and guests use Spot on its own domain — apart from this site and apart from the raw recommendation API.',
+        statementHref: 'https://spot.kiosos.com',
+        body: 'The story stays on this site. Owners and guests use Spot on its own address.',
       },
     ],
     ctas: [
-      { label: 'The engine', route: 'product' },
+      { label: 'Sales help', route: 'product' },
       { label: 'Talk to us', route: 'contact' },
     ],
   },
   kiosk: {
-    title: 'Kiosos Kiosk',
+    title: 'Kiosk',
     description:
-      'Kiosos Kiosk puts the sales-engine in the venue — self-service or counter kiosk for upsell and cross-sell where guests buy, alongside our Shopify plugin.',
-    heading: 'Kiosos Kiosk',
-    tagline: 'The engine. In the room.',
+      'Kiosk puts sales help in the venue — a self-serve or counter screen that suggests the next product where guests pay.',
+    heading: 'Kiosk',
+    tagline: 'Help, where they pay.',
     sections: [
       {
         id: 'purpose',
         kicker: 'Why a kiosk',
-        statement: 'Recommendations where the money changes hands.',
-        body: 'Same tier as the paid API and the Shopify plugin. You buy the selling capability, packaged as an in-venue touchpoint — without building UI on the raw API.',
+        statement: 'The suggestion, where money changes hands.',
+        body: 'The same help as in an online shop, on a screen in the room. You get the selling, without building the screen yourself.',
       },
       {
         id: 'experience',
         kicker: 'What guests meet',
-        statement: 'A quiet prompt. The right next item.',
-        body: 'Fixed kiosk or counter tablet. Same recommendation endpoints as every other integration. Kio’s helpful tone — not a generic chatbot.',
+        statement: 'A quiet nudge. The right next product.',
+        body: 'A fixed screen or a tablet at the counter. The same suggestions as everywhere else. Helpful — not a chat character.',
         points: [
-          { title: 'Context', text: 'Session and cart flow into embeddings, retrieval, and ranking.' },
-          { title: 'Handoff', text: 'Checkout or POS stays yours. Kiosk is not the catalog of record.' },
+          { title: 'The moment', text: 'What they have chosen so far shapes the suggestion.' },
+          { title: 'Handoff', text: 'Paying stays with you. Kiosk is not your product list of record.' },
         ],
       },
       {
         id: 'not-spot',
         kicker: 'Not Spot',
-        statement: 'Spot runs the venue. Kiosk sells smarter.',
-        body: 'Spot is menu and loyalty — the bridge. Kiosk is the engine at the physical point of sale. Both can live in hospitality. They are not the same product.',
+        statement: 'Spot runs the place. Kiosk helps the sale.',
+        body: 'Spot is the menu and the loyalty. Kiosk is the suggestion at the counter. Both can live in a café. They are not the same product.',
       },
       {
         id: 'where',
         kicker: 'Planned home',
         statement: 'kiosk.kiosos.com',
-        body: 'After the core API, with the other direct engine surfaces.',
+        body: 'After sales help itself is ready.',
       },
     ],
     ctas: [
-      { label: 'Kiosos Engine', route: 'product' },
-      { label: 'Kiosos Spot', route: 'spot' },
+      { label: 'Sales help', route: 'product' },
+      { label: 'Spot', route: 'spot' },
       { label: 'Talk to us', route: 'contact' },
     ],
   },
   about: {
-    title: 'About Kiosos',
+    title: 'About',
     description:
-      'Kiosos means Kio, smart operational system — a vector sales-engine and venue products that help merchants sell with upsell and cross-sell.',
+      'Kiosos is Kio plus a call for help — sales help, a venue menu, and a counter screen that help you sell.',
     heading: 'About',
-    tagline: 'Kio. Smart operational system.',
+    tagline: 'Kio. Here when the sale is hard.',
     sections: [
       {
         id: 'name',
         kicker: 'The name',
-        statement: 'Help, built into the spelling.',
-        body: 'Kiosos is Kio plus smart operational system. The trailing SOS is the help signal — show up when selling gets hard, not another empty dashboard.',
+        statement: 'Help is in the spelling.',
+        body: 'Kiosos is Kio, and SOS. SOS means help — show up when selling gets hard, not another empty screen.',
       },
       {
         id: 'estate',
-        kicker: 'The estate',
-        statement: 'One engine. Surfaces that carry it.',
-        body: 'Kiosos Engine sits between catalog and commerce. Spot funds the path. Kiosk and platform plugins put the same recommendations where people already buy.',
+        kicker: 'What we make',
+        statement: 'One kind of help. A few places it lives.',
+        body: 'Sales help sits between your products and the sale. Spot keeps a place running. Kiosk and shop add-ons put the same suggestion where people already buy.',
         points: [
-          { title: 'Engine', text: 'Vector sales API. Upsell and cross-sell.' },
-          { title: 'Spot', text: 'QR menu and loyalty. Monthly SaaS.' },
-          { title: 'Kiosk', text: 'In-venue engine. Same idea as a Shopify plugin.' },
+          { title: 'Sales help', text: 'The next product, at the right moment.' },
+          { title: 'Spot', text: 'QR menu and loyalty. A monthly plan.' },
+          { title: 'Kiosk', text: 'In the room. The same idea as a shop add-on.' },
         ],
       },
       {
         id: 'kio',
         kicker: 'The mark',
         statement: 'Meet Kio.',
-        body: 'A black vector smiley: a wink, an open eye, a half-circle smile. The face of helpful selling — not a chat character.',
+        body: 'A black smiley: one eye winks, one stays open, a half-circle smile. The face of helpful selling — not a chat character.',
       },
     ],
     ctas: [
@@ -216,228 +232,226 @@ const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   },
   mission: {
     title: 'Mission',
-    description:
-      'The Kiosos mission is to help you sell — a vector sales-engine and products that place recommendations where merchants and guests already are.',
+    description: 'The mission is to help you sell — the next product, offered where people already are.',
     heading: 'Mission',
     tagline: 'To help you sell.',
     sections: [
       {
         id: 'why',
         kicker: 'Why',
-        statement: 'The catalog is not the hard part. The moment is.',
-        body: 'Most businesses do not lack products. They miss the next item. We build so merchants and integrators can compete on recommendations — without hiring a platform team.',
+        statement: 'The products are easy. The moment is not.',
+        body: 'Most businesses are not short of products. They miss the next one. We build so you can offer it without a large tech team.',
       },
       {
         id: 'how',
         kicker: 'How',
-        statement: 'One recommendation. Every surface.',
-        body: 'Embed the catalog. Retrieve for sales. Deliver through an API, and through places you can actually deploy.',
+        statement: 'One suggestion. Every place you sell.',
+        body: 'Learn the products. Watch the sale. Hand the suggestion to the shop, the café, or the counter.',
         points: [
-          { title: 'Engine', text: 'The source of the suggestion.' },
-          { title: 'Spot', text: 'Bridge revenue. Real menus. Future context.' },
-          { title: 'Honest edge', text: 'Not your ERP, payments, or generic search.' },
+          { title: 'Sales help', text: 'Where the suggestion comes from.' },
+          { title: 'Spot', text: 'Income now. Real menus. Context for later.' },
+          { title: 'The line', text: 'Not your accounts, your payments, or a general search.' },
         ],
       },
       {
         id: 'tone',
         kicker: 'Tone',
         statement: 'A nudge. Not an alarm.',
-        body: 'SOS means help. Supportive, sales-focused, never panic. That is the line behind kiosos.com.',
+        body: 'SOS means help. Supportive, about the sale, never panic.',
       },
     ],
     ctas: [
-      { label: 'Kiosos Engine', route: 'product' },
+      { label: 'Sales help', route: 'product' },
       { label: 'Get in touch', route: 'contact' },
     ],
   },
   contact: {
     title: 'Contact',
-    description:
-      'Contact Kiosos about the sales-engine API, Kiosos Spot, Kiosos Kiosk, or partnerships at contact@kiosos.com.',
+    description: 'Write to us about sales help, Spot, Kiosk, or working together.',
     heading: 'Contact',
     tagline: 'Tell us what you sell.',
     sections: [
       {
         id: 'reach',
         kicker: 'Start here',
-        statement: 'API, café, or kiosk — one note is enough.',
-        body: 'Integrators, venue owners, and retailers planning in-store surfaces. We read every message.',
+        statement: 'A shop, a café, or a counter — one note is enough.',
+        body: 'People who run a shop, a venue, or a screen where guests buy. We read every message.',
       },
       {
         id: 'next',
         kicker: 'Where we are',
-        statement: 'Site first. Spot next. Engine after.',
-        body: 'Early conversations shape pilots and which integration ships first — Shopify, custom stack, or the venue.',
+        statement: 'This site first. Then Spot. Then the rest.',
+        body: 'Early notes shape what we try first — an online shop, a custom setup, or the venue itself.',
       },
     ],
-    ctas: [{ label: 'The engine', route: 'product' }],
-    contactEmail: 'contact@kiosos.com',
+    ctas: [{ label: 'Sales help', route: 'product' }],
+    contactLinks,
   },
 };
 
 const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   product: {
-    title: 'Kiosos Engine',
+    title: 'Satış yardımı',
     description:
-      'Kiosos Engine, upsell ve cross-sell için vektörel satış motoru API’sidir: katalog embedding, akıllı retrieval ve checkout’a kadar sıralı öneriler.',
-    heading: 'Kiosos Engine',
+      'Satış yardımı, birisi alırken sıradaki ürünü önerir — daha iyi bir teklif, ya da seçtiğiyle giden bir ürün.',
+    heading: 'Satış yardımı',
     tagline: 'Doğru ürün. Doğru an.',
     sections: [
       {
         id: 'problem',
         kicker: 'Boşluk',
-        statement: 'Kataloğunuz var. Sıradaki satış eksik.',
-        body: 'Büyük perakendeciler sepet ve attach için yıllar harcar. Kiosos o katmanı API olarak sunar — ürünleriniz ile zaten kullandığınız ticaret yüzeyleri arasında.',
+        statement: 'Ürünleriniz var. Zor olan sıradaki satış.',
+        body: 'Büyük mağazalar sepete bir ürün daha koymak için yıllarını verir. Biz o işi sizin için yaparız — sattıklarınız ile kullandığınız satış yeri arasında.',
       },
       {
         id: 'what',
         kicker: 'Nasıl',
-        statement: 'Embed. Getir. Öner.',
-        body: 'Vektörel satış motoru. Sohbet botu değil. Açık web araması değil. Katalog ve oturum girer. Sıralı öneri çıkar.',
+        statement: 'Anı gör. Ürünü öner.',
+        body: 'Sohbet kutusu değil. Web araması değil. Müşterinin ne yaptığına bakar, uyan ürünü sunarız.',
         points: [
-          { title: 'Embed', text: 'Ad, kategori, açıklama, fiyat ve tuttuğunuz nitelikler.' },
-          { title: 'Retrieve', text: 'Satış için sıralama — yalnızca en yakın komşu değil.' },
-          { title: 'Karar', text: 'Gerçek bir görevi öneriye bağlayan AI destekli akış.' },
+          { title: 'Ne okuruz', text: 'Ad, tür, açıklama, fiyat ve zaten tuttuğunuz bilgiler.' },
+          { title: 'Ne alırsınız', text: 'Satılma ihtimaline göre sıralanmış kısa bir liste.' },
+          { title: 'An', text: 'Sepet ya da eldeki tek ürün, bir öneriye döner.' },
         ],
       },
       {
         id: 'intents',
-        kicker: 'API',
-        statement: 'Satışı sorun. Listeyi alın.',
+        kicker: 'Ne sorabilirsiniz',
+        statement: 'Satışı sorun. Kısa listeyi alın.',
         points: [
-          { title: 'Sepet', text: 'Sepetteki ürünler — ödeme ekranı için beş öneri.' },
-          { title: 'Upsell', text: 'Eldeki ürün — en güçlü sonraki teklif ve ilgili cross-sell.' },
+          { title: 'Sepet', text: 'Seçilmiş ürünler — ödemeden önce birkaç öneri.' },
+          { title: 'Daha iyi teklif', text: 'Eldeki ürün — daha güçlü bir seçenek ve onunla gidenler.' },
         ],
       },
       {
         id: 'boundary',
         kicker: 'Sınır',
-        statement: 'Elinizdekini daha iyi satmanıza yardım ederiz.',
-        body: 'Ürün ve sipariş kaydı sizde kalır. Kiosos zeka katmanıdır.',
+        statement: 'Elinizdekini satmanıza yardım ederiz.',
+        body: 'Ürün ve sipariş kaydı sizde kalır. Biz yalnızca öneriye yardım ederiz.',
         points: [
-          { title: 'Olan', text: 'Katalog üzerinde satışa özgü retrieval ve ranking.' },
-          { title: 'Olmayan', text: 'ERP’niz, tam vitrin veya genel web araması.' },
+          { title: 'Yaptığımız', text: 'Sunulacak sıradaki ürünü seçmek.' },
+          { title: 'Yapmadığımız', text: 'Hesaplarınız, mağazanızın kendisi ya da genel web araması.' },
         ],
       },
     ],
     ctas: [
-      { label: 'Kiosos Spot', route: 'spot' },
-      { label: 'Kiosos Kiosk', route: 'kiosk' },
+      { label: 'Spot', route: 'spot' },
+      { label: 'Kiosk', route: 'kiosk' },
       { label: 'Bize yazın', route: 'contact' },
     ],
   },
   spot: {
-    title: 'Kiosos Spot',
+    title: 'Spot',
     description:
-      'Kiosos Spot, kafe ve mekânlar için QR menü ile sadakati tek aylık SaaS’ta birleştirir — spot.kiosos.com, satış motoruyla büyümeye hazır.',
-    heading: 'Kiosos Spot',
+      'Spot, kafeler ve benzeri mekânlar için QR menü ile sadakati bir arada sunar. Misafirler spot.kiosos.com adresinden sipariş verir.',
+    heading: 'Spot',
     tagline: 'Tara. Sipariş ver. Geri gel.',
     sections: [
       {
         id: 'bundle',
         kicker: 'Tek ürün',
-        statement: 'Menü ve sadakat. Aynı mekân. Aynı misafir.',
-        body: 'Konaklama için tek abonelik — önce kafeler. Ayrı menü uygulaması artı damga uygulaması değil.',
+        statement: 'Menü ve sadakat. Aynı yer. Aynı misafir.',
+        body: 'Önce kafeler için tek aylık plan. Ayrı bir menü uygulaması, üstüne ayrı bir damga uygulaması değil.',
         points: [
-          { title: 'QR menü', text: 'Misafir tarar, katalogu gezer, masadan sipariş verir.' },
-          { title: 'Sadakat', text: 'Aynı yere bağlı damga, ödül ve tekrar ziyaret.' },
+          { title: 'QR menü', text: 'Misafir tarar, ürünlere bakar, masadan sipariş verir.' },
+          { title: 'Sadakat', text: 'Aynı yere bağlı damga, ödül ve tekrar geliş.' },
         ],
       },
       {
         id: 'saas',
         kicker: 'Nasıl alınır',
-        statement: 'Aylık paketler. İlk günden öngörülebilir.',
-        body: 'Mekân ve büyümeye göre katmanlı, tekrarlayan SaaS. Fiyat ürünle gelir — model proje değil, abonelik.',
+        statement: 'Aylık plan. İlk günden net.',
+        body: 'Her ay ödersiniz; mekân büyüdükçe yer açılır. Fiyat ürünle birlikte gelir — tek seferlik iş değil, abonelik.',
       },
       {
         id: 'bridge',
         kicker: 'Neden var',
-        statement: 'Bugün gerçek mekân. Yarın daha akıllı katalog.',
-        body: 'Spot, motor olgunlaşırken nakit köprüsüdür. Menü, sipariş ve sadakat, ilk API çağrısından önce bile Engine’e beslenecek şekilde modellenir.',
+        statement: 'Bugün gerçek bir mekân. Yarın daha akıllı satış.',
+        body: 'Satış yardımı olgunlaşırken Spot kendi masrafını çıkarır. Menü, sipariş ve sadakat, o yardımın sonradan kullanabileceği şekilde durur.',
       },
       {
         id: 'where',
         kicker: 'Adres',
         statement: 'spot.kiosos.com',
-        body: 'Güven ve hikâye kiosos.com’da. Operatör ve misafir Spot’u kendi alanında kullanır — bu siteden ve ham öneri API’sinden ayrı.',
+        statementHref: 'https://spot.kiosos.com',
+        body: 'Hikâye bu sitede kalır. İşleten ve misafir Spot’u kendi adresinde kullanır.',
       },
     ],
     ctas: [
-      { label: 'Motor', route: 'product' },
+      { label: 'Satış yardımı', route: 'product' },
       { label: 'Bize yazın', route: 'contact' },
     ],
   },
   kiosk: {
-    title: 'Kiosos Kiosk',
+    title: 'Kiosk',
     description:
-      'Kiosos Kiosk, satış motorunu mekâna taşır — self-servis veya tezgah kioskunda upsell ve cross-sell; Shopify eklentisi ile aynı seviyede.',
-    heading: 'Kiosos Kiosk',
-    tagline: 'Motor. Odada.',
+      'Kiosk, satış yardımını mekâna taşır — misafirin ödediği yerde sıradaki ürünü öneren self-servis ya da tezgâh ekranı.',
+    heading: 'Kiosk',
+    tagline: 'Yardım, ödemenin olduğu yerde.',
     sections: [
       {
         id: 'purpose',
         kicker: 'Neden kiosk',
         statement: 'Öneri, paranın el değiştirdiği yerde.',
-        body: 'Ücretli API ve Shopify eklentisi ile aynı seviye. Satış yeteneğini satın alırsınız — ham API üzerine arayüz kurmadan, mekân içi bir yüzey olarak.',
+        body: 'İnternetteki satış yardımının aynısı, odadaki bir ekranda. Ekranı kendiniz kurmadan satışı alırsınız.',
       },
       {
         id: 'experience',
         kicker: 'Misafir',
         statement: 'Sakin bir işaret. Doğru sonraki ürün.',
-        body: 'Sabit kiosk veya tezgah tableti. Diğer entegrasyonlarla aynı öneri uçları. Kio’nun yardım tonu — genel bir sohbet karakteri değil.',
+        body: 'Sabit ekran ya da tezgâh tableti. Her yerdekiyle aynı öneriler. Yardımcı — sohbet karakteri değil.',
         points: [
-          { title: 'Bağlam', text: 'Oturum ve sepet; embedding, retrieval ve ranking.' },
-          { title: 'Devir', text: 'Checkout ve POS sizde. Kiosk katalog kaydı değildir.' },
+          { title: 'An', text: 'O ana kadar seçtikleri, öneriyi belirler.' },
+          { title: 'Devir', text: 'Ödeme sizde kalır. Kiosk, ürün listenizin kaydı değildir.' },
         ],
       },
       {
         id: 'not-spot',
         kicker: 'Spot değil',
-        statement: 'Spot mekânı işletir. Kiosk daha akıllı satar.',
-        body: 'Spot menü ve sadakattir — köprü. Kiosk, motorun fiziksel satış noktasıdır. İkisi de konaklamada durabilir. Aynı ürün değildir.',
+        statement: 'Spot mekânı işletir. Kiosk satışa yardım eder.',
+        body: 'Spot menü ve sadakattir. Kiosk tezgâhtaki öneridir. İkisi de bir kafede durabilir. Aynı ürün değildir.',
       },
       {
         id: 'where',
         kicker: 'Planlanan adres',
         statement: 'kiosk.kiosos.com',
-        body: 'Çekirdek API’den sonra, diğer doğrudan motor yüzeyleriyle birlikte.',
+        body: 'Satış yardımının kendisi hazır olduktan sonra.',
       },
     ],
     ctas: [
-      { label: 'Kiosos Engine', route: 'product' },
-      { label: 'Kiosos Spot', route: 'spot' },
+      { label: 'Satış yardımı', route: 'product' },
+      { label: 'Spot', route: 'spot' },
       { label: 'Bize yazın', route: 'contact' },
     ],
   },
   about: {
     title: 'Hakkımızda',
-    description:
-      'Kiosos: Kio, smart operational system — upsell ve cross-sell ile satışa yardım eden vektörel satış motoru ve mekân ürünleri.',
+    description: 'Kiosos, Kio ve bir yardım çağrısıdır — satış yardımı, mekân menüsü ve tezgâh ekranı.',
     heading: 'Hakkımızda',
-    tagline: 'Kio. Smart operational system.',
+    tagline: 'Kio. Satış zorlaşınca burada.',
     sections: [
       {
         id: 'name',
         kicker: 'İsim',
         statement: 'Yardım, yazımın içinde.',
-        body: 'Kiosos, Kio artı smart operational system. Sondaki SOS yardım sinyalidir — satış zorlaşınca yanınızda olmak, boş bir panel daha değil.',
+        body: 'Kiosos, Kio ve SOS’tur. SOS yardım demektir — satış zorlaşınca yanınızda olmak, boş bir ekran daha değil.',
       },
       {
         id: 'estate',
-        kicker: 'Yapı',
-        statement: 'Bir motor. Onu taşıyan yüzeyler.',
-        body: 'Kiosos Engine katalog ile ticaret arasındadır. Spot yolu finanse eder. Kiosk ve platform eklentileri aynı öneriyi alışverişin olduğu yere koyar.',
+        kicker: 'Ne yapıyoruz',
+        statement: 'Tek tür yardım. Birkaç yerde.',
+        body: 'Satış yardımı, ürünleriniz ile satışın arasında durur. Spot bir mekânı ayakta tutar. Kiosk ve mağaza eklentileri aynı öneriyi insanların zaten alışveriş yaptığı yere koyar.',
         points: [
-          { title: 'Engine', text: 'Vektörel satış API’si. Upsell ve cross-sell.' },
-          { title: 'Spot', text: 'QR menü ve sadakat. Aylık SaaS.' },
-          { title: 'Kiosk', text: 'Mekânda motor. Shopify eklentisi ile aynı fikir.' },
+          { title: 'Satış yardımı', text: 'Doğru anda sıradaki ürün.' },
+          { title: 'Spot', text: 'QR menü ve sadakat. Aylık plan.' },
+          { title: 'Kiosk', text: 'Odada. Bir mağaza eklentisiyle aynı fikir.' },
         ],
       },
       {
         id: 'kio',
         kicker: 'İşaret',
         statement: 'Kio ile tanışın.',
-        body: 'Siyah vektör smiley: göz kırpma, açık göz, yarım daire gülümseme. Yardımcı satışın yüzü — sohbet karakteri değil.',
+        body: 'Siyah bir gülümseme: bir göz kırpar, biri açık kalır, yarım daire bir tebessüm. Yardımcı satışın yüzü — sohbet karakteri değil.',
       },
     ],
     ctas: [
@@ -447,116 +461,120 @@ const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   },
   mission: {
     title: 'Misyon',
-    description:
-      'Kiosos misyonu satışta yardımdır — önerileri işletmeci ve misafirin zaten bulunduğu yere taşıyan vektörel satış motoru.',
+    description: 'Misyon, satışta yardımdır — sıradaki ürün, insanların zaten olduğu yerde.',
     heading: 'Misyon',
     tagline: 'Satışta yardım.',
     sections: [
       {
         id: 'why',
         kicker: 'Neden',
-        statement: 'Zor olan katalog değil. Satış anıdır.',
-        body: 'Çoğu işletmenin eksiği ürün değildir. Sıradaki üründür. Platform ekibi kurmadan öneride yarışabilmeniz için inşa ediyoruz.',
+        statement: 'Ürünler kolay. Zor olan andır.',
+        body: 'Çoğu işletmenin eksiği ürün değildir. Sıradaki üründür. Büyük bir teknik ekip kurmadan onu sunabilmeniz için yapıyoruz.',
       },
       {
         id: 'how',
         kicker: 'Nasıl',
-        statement: 'Tek öneri. Her yüzey.',
-        body: 'Kataloğu embed edin. Satış için getirin. API ile ve gerçekten kurabileceğiniz yerlerde sunun.',
+        statement: 'Tek öneri. Sattığınız her yer.',
+        body: 'Ürünleri öğreniriz. Satışa bakarız. Öneriyi mağazaya, kafeye ya da tezgâha veririz.',
         points: [
-          { title: 'Motor', text: 'Önerinin kaynağı.' },
-          { title: 'Spot', text: 'Köprü geliri. Gerçek menüler. Gelecek bağlam.' },
-          { title: 'Sınır', text: 'ERP, ödeme veya genel arama değil.' },
+          { title: 'Satış yardımı', text: 'Önerinin geldiği yer.' },
+          { title: 'Spot', text: 'Bugünkü gelir. Gerçek menüler. Sonrası için bağlam.' },
+          { title: 'Sınır', text: 'Hesaplarınız, ödemeleriniz ya da genel bir arama değil.' },
         ],
       },
       {
         id: 'tone',
         kicker: 'Ton',
         statement: 'Bir itme. Alarm değil.',
-        body: 'SOS yardım demektir. Destekleyici, satış odaklı, panik yok. kiosos.com’un arkasındaki çizgi budur.',
+        body: 'SOS yardım demektir. Destekleyici, satışa dair, panik yok.',
       },
     ],
     ctas: [
-      { label: 'Kiosos Engine', route: 'product' },
+      { label: 'Satış yardımı', route: 'product' },
       { label: 'İletişim', route: 'contact' },
     ],
   },
   contact: {
     title: 'İletişim',
-    description:
-      'Satış motoru API’si, Kiosos Spot, Kiosos Kiosk veya ortaklık için contact@kiosos.com.',
+    description: 'Satış yardımı, Spot, Kiosk ya da birlikte çalışmak için bize yazın.',
     heading: 'İletişim',
     tagline: 'Ne sattığınızı söyleyin.',
     sections: [
       {
         id: 'reach',
         kicker: 'Başlangıç',
-        statement: 'API, kafe veya kiosk — bir not yeter.',
-        body: 'Entegratör, mekân sahibi, mağaza içi yüzey planlayan perakendeci. Her mesajı okuyoruz.',
+        statement: 'Mağaza, kafe ya da tezgâh — bir not yeter.',
+        body: 'Dükkânı, mekânı ya da misafirin alışveriş ettiği ekranı işletenler. Her mesajı okuruz.',
       },
       {
         id: 'next',
         kicker: 'Neredeyiz',
-        statement: 'Önce site. Sonra Spot. Sonra motor.',
-        body: 'Erken konuşmalar pilotu ve ilk entegrasyonu şekillendirir — Shopify, özel stack veya mekân.',
+        statement: 'Önce bu site. Sonra Spot. Sonra gerisi.',
+        body: 'Erken notlar, ilk denemeyi şekillendirir — internet mağazası, özel bir kurulum ya da mekânın kendisi.',
       },
     ],
-    ctas: [{ label: 'Motor', route: 'product' }],
-    contactEmail: 'contact@kiosos.com',
+    ctas: [{ label: 'Satış yardımı', route: 'product' }],
+    contactLinks,
   },
 };
 
 export const homeCopy: Record<Locale, HomeCopy> = {
   en: {
-    brand: 'Kiosos',
-    headline: 'to help you sell.',
-    intro: 'A vector sales-engine between your catalog and the moment of the sale.',
+    description:
+      'Kiosos helps you sell the next product — a suggestion while someone is buying, a QR menu for venues, and a counter screen.',
+    headlineBefore: 'to ',
+    headlineAccent: 'help',
+    headlineAfter: ' you sell.',
+    intro: 'A simple way to suggest the next product while someone is buying.',
     exploreLabel: 'Products',
     cards: [
       {
         route: 'product',
-        kicker: 'API',
-        title: 'Engine',
-        blurb: 'Upsell and cross-sell. Embeddings, retrieval, a ranked list.',
+        kicker: 'Shops',
+        title: 'Sales help',
+        blurb: 'Suggest a better next product, or one that goes with what they already chose.',
       },
       {
         route: 'spot',
-        kicker: 'Venue',
+        kicker: 'Venues',
         title: 'Spot',
-        blurb: 'QR menu and loyalty. One monthly subscription.',
+        blurb: 'QR menu and loyalty. One monthly plan.',
       },
       {
         route: 'kiosk',
-        kicker: 'In the room',
+        kicker: 'At the counter',
         title: 'Kiosk',
-        blurb: 'The engine at the counter. Where guests buy.',
+        blurb: 'The same help, where the guest is paying.',
       },
     ],
     missionLinkLabel: 'Mission',
   },
   tr: {
-    brand: 'Kiosos',
-    headline: 'satışta yardım.',
-    intro: 'Katalog ile satış anı arasında vektörel bir satış motoru.',
+    description:
+      'Kiosos satışta yardım eder — alışveriş sırasında öneri, mekânlar için QR menü ve tezgâh ekranı.',
+    headlineBefore: 'satışta ',
+    headlineAccent: 'yardım',
+    headlineAfter: '.',
+    intro: 'Birisi alırken, sıradaki ürünü önermenin sade yolu.',
     exploreLabel: 'Ürünler',
     cards: [
       {
         route: 'product',
-        kicker: 'API',
-        title: 'Engine',
-        blurb: 'Upsell ve cross-sell. Embedding, retrieval, sıralı liste.',
+        kicker: 'Mağazalar',
+        title: 'Satış yardımı',
+        blurb: 'Daha uygun bir sonraki ürünü, ya da elindekine uyan bir ürünü önerir.',
       },
       {
         route: 'spot',
-        kicker: 'Mekân',
+        kicker: 'Mekânlar',
         title: 'Spot',
-        blurb: 'QR menü ve sadakat. Tek aylık abonelik.',
+        blurb: 'QR menü ve sadakat. Tek aylık plan.',
       },
       {
         route: 'kiosk',
-        kicker: 'Odada',
+        kicker: 'Tezgâhta',
         title: 'Kiosk',
-        blurb: 'Tezgâhta motor. Misafirin satın aldığı yer.',
+        blurb: 'Aynı yardım, misafirin ödeme yaptığı yerde.',
       },
     ],
     missionLinkLabel: 'Misyon',
