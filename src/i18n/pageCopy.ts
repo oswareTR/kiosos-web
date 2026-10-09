@@ -113,17 +113,17 @@ const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   spot: {
     title: 'Spot',
     description:
-      'Spot is a QR menu and loyalty, together, for cafés and similar places. Guests order at spot.kiosos.com.',
+      'Spot is a QR menu and loyalty, together, for cafés and similar places. Customers order at spot.kiosos.com.',
     heading: 'Spot',
     tagline: 'Scan. Order. Come back.',
     sections: [
       {
         id: 'bundle',
         kicker: 'One product',
-        statement: 'Menu and loyalty. Same place. Same guest.',
+        statement: 'Menu and loyalty. Same place. Same customer.',
         body: 'One monthly plan for cafés first. Not a menu app plus a stamp app.',
         points: [
-          { title: 'QR menu', text: 'Guests scan, look through the products, and order from the table.' },
+          { title: 'QR menu', text: 'Customers scan, look through the products, and order from the table.' },
           { title: 'Loyalty', text: 'Stamps, rewards, and return visits, tied to the same place.' },
         ],
       },
@@ -144,7 +144,7 @@ const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
         kicker: 'Where it lives',
         statement: 'spot.kiosos.com',
         statementHref: 'https://spot.kiosos.com',
-        body: 'The story stays on this site. Owners and guests use Spot on its own address.',
+        body: 'The story stays on this site. Owners and customers use Spot on its own address.',
       },
     ],
     ctas: [
@@ -155,7 +155,7 @@ const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   kiosk: {
     title: 'Kiosk',
     description:
-      'Kiosk puts sales help in the venue — a self-serve or counter screen that suggests the next product where guests pay.',
+      'Kiosk puts sales help in the venue — a self-serve or counter screen that suggests the next product where customers pay.',
     heading: 'Kiosk',
     tagline: 'Help, where they pay.',
     sections: [
@@ -167,7 +167,7 @@ const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
       },
       {
         id: 'experience',
-        kicker: 'What guests meet',
+        kicker: 'What customers meet',
         statement: 'A quiet nudge. The right next product.',
         body: 'A fixed screen or a tablet at the counter. The same suggestions as everywhere else. Helpful — not a chat character.',
         points: [
@@ -275,7 +275,7 @@ const enPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
         id: 'reach',
         kicker: 'Start here',
         statement: 'A shop, a café, or a counter — one note is enough.',
-        body: 'People who run a shop, a venue, or a screen where guests buy. We read every message.',
+        body: 'People who run a shop, a venue, or a screen where customers buy. We read every message.',
       },
       {
         id: 'next',
@@ -343,17 +343,17 @@ const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   spot: {
     title: 'Spot',
     description:
-      'Spot, kafeler ve benzeri mekânlar için QR menü ile sadakati bir arada sunar. Misafirler spot.kiosos.com adresinden sipariş verir.',
+      'Spot, kafeler ve benzeri mekânlar için QR menü ile sadakati bir arada sunar. Müşteriler spot.kiosos.com adresinden sipariş verir.',
     heading: 'Spot',
     tagline: 'Tara. Sipariş ver. Geri gel.',
     sections: [
       {
         id: 'bundle',
         kicker: 'Tek ürün',
-        statement: 'Menü ve sadakat. Aynı yer. Aynı misafir.',
+        statement: 'Menü ve sadakat. Aynı yer. Aynı müşteri.',
         body: 'Önce kafeler için tek aylık plan. Ayrı bir menü uygulaması, üstüne ayrı bir damga uygulaması değil.',
         points: [
-          { title: 'QR menü', text: 'Misafir tarar, ürünlere bakar, masadan sipariş verir.' },
+          { title: 'QR menü', text: 'Müşteri tarar, ürünlere bakar, masadan sipariş verir.' },
           { title: 'Sadakat', text: 'Aynı yere bağlı damga, ödül ve tekrar geliş.' },
         ],
       },
@@ -374,7 +374,7 @@ const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
         kicker: 'Adres',
         statement: 'spot.kiosos.com',
         statementHref: 'https://spot.kiosos.com',
-        body: 'Hikâye bu sitede kalır. İşleten ve misafir Spot’u kendi adresinde kullanır.',
+        body: 'Hikâye bu sitede kalır. İşleten ve müşteri Spot’u kendi adresinde kullanır.',
       },
     ],
     ctas: [
@@ -385,7 +385,7 @@ const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
   kiosk: {
     title: 'Kiosk',
     description:
-      'Kiosk, satış yardımını mekâna taşır — misafirin ödediği yerde sıradaki ürünü öneren self-servis ya da tezgâh ekranı.',
+      'Kiosk, satış yardımını mekâna taşır — müşterinin ödediği yerde sıradaki ürünü öneren self-servis ya da tezgâh ekranı.',
     heading: 'Kiosk',
     tagline: 'Yardım, ödemenin olduğu yerde.',
     sections: [
@@ -397,7 +397,7 @@ const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
       },
       {
         id: 'experience',
-        kicker: 'Misafir',
+        kicker: 'Müşteri',
         statement: 'Sakin bir işaret. Doğru sonraki ürün.',
         body: 'Sabit ekran ya da tezgâh tableti. Her yerdekiyle aynı öneriler. Yardımcı — sohbet karakteri değil.',
         points: [
@@ -504,7 +504,7 @@ const trPages: Record<Exclude<RouteId, 'home'>, RichPageCopy> = {
         id: 'reach',
         kicker: 'Başlangıç',
         statement: 'Mağaza, kafe ya da tezgâh — bir not yeter.',
-        body: 'Dükkânı, mekânı ya da misafirin alışveriş ettiği ekranı işletenler. Her mesajı okuruz.',
+        body: 'Dükkânı, mekânı ya da müşterinin alışveriş ettiği ekranı işletenler. Her mesajı okuruz.',
       },
       {
         id: 'next',
@@ -544,7 +544,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         route: 'kiosk',
         kicker: 'At the counter',
         title: 'Kiosk',
-        blurb: 'The same help, where the guest is paying.',
+        blurb: 'The same help, where the customer is paying.',
       },
     ],
     missionLinkLabel: 'Mission',
@@ -574,7 +574,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         route: 'kiosk',
         kicker: 'Tezgâhta',
         title: 'Kiosk',
-        blurb: 'Aynı yardım, misafirin ödeme yaptığı yerde.',
+        blurb: 'Aynı yardım, müşterinin ödeme yaptığı yerde.',
       },
     ],
     missionLinkLabel: 'Misyon',
